@@ -1,9 +1,0 @@
-name: example
-on: [push]
-jobs: 
-  build:
-    name: Buildando
-    runs-on: ubuntu-latest
-    steps:
-      - name: FirstStep
-        uses: actions/ 

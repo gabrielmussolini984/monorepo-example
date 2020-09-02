@@ -1,4 +1,4 @@
-name: Build and Deploy (DEV)
+name: Build Admin Panel (DEV)
 
 on:
   push:
@@ -18,10 +18,10 @@ jobs:
           node-version: 12.x
 
       - name: Build Image
-        run: docker build -t gabriel984/admin-panel:latest -t gabriel984/admin-panel:$SHORT_SHA packages/admin-panel-api/dockerfile
+        run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
 
       - name: Run Image
         run: docker run -d  --name admin-panel gabriel984/admin-panel:latest
 
-      - name: Run Testes
+      - name: Run Tests
         run: docker exec admin-panel yarn test
