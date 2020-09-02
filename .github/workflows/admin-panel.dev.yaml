@@ -1,0 +1,27 @@
+name: Build and Deploy (DEV)
+
+on:
+  push:
+    paths:
+      - 'packages/admin-panel/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Build Image
+        run: docker build -t gabriel984/admin-panel:latest -t gabriel984/admin-panel:$SHORT_SHA packages/admin-panel-api/dockerfile
+
+      - name: Run Image
+        run: docker run -d  --name admin-panel gabriel984/admin-panel:latest
+
+      - name: Run Testes
+        run: docker exec admin-panel yarn test
