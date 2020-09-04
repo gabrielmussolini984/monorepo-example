@@ -14,7 +14,7 @@ services:
       - db
     networks:
       - default
-      - rabbitmq_saas-store
+      # - rabbitmq_saas-store
       # - redis_saas-store
 
   db:
@@ -36,7 +36,7 @@ services:
 networks:
   default:
     driver: bridge
-  rabbitmq_saas-store:
-    external: true
+  # rabbitmq_saas-store:
+  #   external: true
   # redis_saas-store:
   #   external: true
