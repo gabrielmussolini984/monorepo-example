@@ -18,7 +18,8 @@ jobs:
           node-version: 12.x
 
       - name: Build Image
-        run: cd packages/admin-panel/ && docker-compose up -d    
+        run: cd packages/admin-panel/ && docker-compose up --build -d
+
       # - name: Build Image
       #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
 
