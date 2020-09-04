@@ -2,39 +2,10 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "removeComments": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
-    "moduleResolution": "Node",
-    "strictPropertyInitialization": false,
-    "esModuleInterop": true,
+    "noEmit": true,
     "resolveJsonModule": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@modules/*": [
-        "./modules/*"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ]
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "src/shared/infra/sequelize/*",
-    "src/public/*",
-    "src/shared/infra/http/views/*",
-    "prettier.config.js"
-  ]
+    "forceConsistentCasingInFileNames": true
+  }
 }

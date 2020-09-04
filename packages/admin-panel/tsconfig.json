@@ -35,6 +35,8 @@
     "src/shared/infra/sequelize/*",
     "src/public/*",
     "src/shared/infra/http/views/*",
-    "prettier.config.js"
+    "prettier.config.js",
+    "test.ts",
+    "**/*.spec.ts"
   ]
 }
