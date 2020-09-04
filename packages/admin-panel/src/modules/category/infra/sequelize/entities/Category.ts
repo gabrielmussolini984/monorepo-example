@@ -9,7 +9,7 @@ import {
   BelongsTo,
   IsUUID,
   DataType,
-  Default,
+  Default
 } from 'sequelize-typescript';
 import { Tenant } from '@modules/tenant/infra/sequelize/entities/Tenant';
 
