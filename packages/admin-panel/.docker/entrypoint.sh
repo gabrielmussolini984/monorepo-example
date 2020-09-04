@@ -2,5 +2,5 @@
 
 cd /home/node/app/
 yarn
-yarn add jest -d
+yarn add jest -D
 yarn run dev
