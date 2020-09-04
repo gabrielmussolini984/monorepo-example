@@ -18,10 +18,12 @@ jobs:
           node-version: 12.x
 
       - name: Build Image
-        run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
+        run: docker-compose up -d    
+      # - name: Build Image
+      #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
 
-      - name: Run Image
-        run: docker run -d  --name admin-panel gabriel984/admin-panel:latest
+      # - name: Run Image
+      #   run: docker run -d  --name admin-panel -p 3000:3000 gabriel984/admin-panel:latest
 
       - name: Run Tests
-        run: docker exec admin-panel yarn test
+        run: docker exec app-admin-panel yarn test
