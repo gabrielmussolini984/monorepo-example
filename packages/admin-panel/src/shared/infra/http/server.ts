@@ -6,6 +6,6 @@ const connect = async () => {
   const { app } = new App();
   const port = process.env.PORT || 3000;
   // eslint-disable-next-line
-  app.listen(port, () => console.log('Server Runnings at port 3000'));
+  app.listen(port, () => console.log('Server Running at port 3000'));
 };
 connect();
