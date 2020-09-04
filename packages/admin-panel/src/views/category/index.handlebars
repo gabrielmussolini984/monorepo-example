@@ -1,0 +1,130 @@
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- /.card-header -->
+            <div class="card-body">
+              <button type="button" class="btn btn-flat btn-block btn-outline-primary mb-3" data-toggle="modal"
+                data-target="#modal-primary">Criar Categoria</button>
+              <table id="tabela-categories" class="table table-bordered table-striped text-center">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Criado em</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+
+  <div class="modal fade" id="modal-danger">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-danger">
+        <div class="modal-header">
+          <h4 class="modal-title">Cuidado!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Você têm certeza que deseja excluir a categoria &hellip;</p>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-outline-light" data-dismiss="modal">Fechar</button>
+          <button id="modalDelete" type="button" class="btn btn-outline-light" data-dismiss="modal">Sim</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- New Category -->
+  <div class="modal fade" id="modal-primary">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-primary">
+        <div class="modal-header">
+          <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- form start -->
+          <form id="newCategory" action="/" method="POST" role="form">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text"  name="name" class="form-control" placeholder="Digite um nome para a categoria" autofocus>
+              </div>
+              <div class="form-group">
+                <label for="description">Slug</label>
+                <input name="description" type="text" class="form-control"
+                  placeholder="Digite uma descrição para a categoria">
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-outline-light float-right">Criar
+                categoria</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+  <div class="modal fade" id="modal-secondary">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-secondary">
+        <div class="modal-header">
+          <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editCategory" role="form">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="nameCategory">Nome</label>
+                <input type="text" name="name" class="form-control"
+                  placeholder="Digite um nome para a categoria">
+              </div>
+              <div class="form-group">
+                <label for="description">Slug</label>
+                <input name="description" type="text" class="form-control"
+                  placeholder="Digite um slug para a categoria">
+              </div>
+              <input type="text" name="id" class="form-control" hidden placeholder="Digite um nome para a categoria">
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-outline-light float-right">Editar
+                categoria</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</div>

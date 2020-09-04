@@ -1,0 +1,202 @@
+<script src="config/configTablesCrud.js"></script>
+<script>
+  $(document).ready(function () {
+    /****  Config DataTable ****/
+    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
+    const table = $("#tabela-categories").DataTable({
+      ...config,
+      columns: [
+        { data: "name" },
+        { data: "created_at" },
+        { data: "" },
+      ],
+      columnDefs: [
+        {
+          targets: -1,
+          data: "id",
+          defaultContent: columnAction
+        },
+        {
+          targets: 1,
+          render: function (data, type, full, meta) {
+            return moment(data).format('DD/MM/YYYY - HH:mm');
+          }
+        },
+      ]
+    });
+
+    /****  /Config DataTable ****/
+
+    /********* Edit Category ***********/
+    $('#editCategory').validate(
+      {
+        submitHandler: function (form) {
+          let params = {}
+          $(form).serializeArray().forEach(item => {
+            params[item.name] = item.value;
+          })
+          $.ajax({
+            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + params.id,
+            type: "PUT",
+            data: params,
+            headers: "contentType: \"application/json\"",
+            success: function (response) {
+              table.ajax.reload();
+              $('#modal-secondary').modal('hide');
+              Toast.fire({
+                icon: 'success',
+                title: 'Categoria editada com sucesso!'
+              })
+            },
+            error: function (error) {
+              $('#modal-secondary').modal('hide');
+              Toast.fire({
+                icon: 'error',
+                title: 'Erro ao editar categoria!'
+              })
+            }
+          })
+        },
+        rules: {
+          name: {
+            required: true,
+            minlength: 5
+          },
+          description: {
+            required: true,
+            minlength: 5
+          }
+        },
+        messages: {
+          name: {
+            required: "",
+            minlength: ""
+          },
+          description: {
+            required: "",
+            minlength: ""
+          }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+
+    $('#modal-secondary').on('show.bs.modal', function (event) {
+      let button = event.relatedTarget.parentElement.parentElement;
+      let line = table.row(button);
+      const category = line.data();
+      $(`#editCategory input`).each((index, element) => {
+        element.value = category[element.name] || "";
+      })
+    });
+    /********* /Edit Category ***********/
+
+    /********* Delete Category ***********/
+    $('#modal-danger').on('show.bs.modal', function (event) {
+      const botao = event.relatedTarget.parentElement.parentElement;
+      let linhaCategory = table.row(botao);
+      const category = linhaCategory.data();
+      const modal = $(this);
+      modal.find('.modal-body p').text('Você têm certeza que deseja excluir a categoria: ' + category.name + '?');
+
+      const buttonDelete = modal.find('#modalDelete');
+      buttonDelete.attr("value", category.id)
+      buttonDelete.click(function (e) {
+        const id = e.target.value;
+        $.ajax({
+          url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + id,
+          type: "DELETE",
+          headers: "contentType: \"application/json\"",
+          success: function (response) {
+            table.ajax.reload();
+            Toast.fire({
+              icon: 'success',
+              title: 'Categoria removida com sucesso!'
+            })
+          },
+          error: function (err) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Erro ao remover categoria!'
+            })
+          }
+        })
+      })
+    });
+    /********* /Delete Category ***********/
+    /********* Insert Category ***********/
+    modalInsert('newCategory');
+    inputFocus('nameCategory');
+    $('#newCategory').validate(
+      {
+        submitHandler: function (form) {
+          $.ajax({
+            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category",
+            type: "POST",
+            data: $(form).serialize(),
+            headers: "contentType: \"application/json\"",
+            success: function (response) {
+              table.ajax.reload();
+              $('#modal-primary').modal('hide');
+              Toast.fire({
+                icon: 'success',
+                title: 'Categoria criada com sucesso!'
+              })
+            },
+            error: function (err) {
+              $('#modal-primary').modal('hide');
+              Toast.fire({
+                icon: 'error',
+                title: 'Erro ao criar a categoria!'
+              })
+
+            }
+          });
+        },
+        rules: {
+          name: {
+            required: true,
+            minlength: 5
+          },
+          description: {
+            required: true,
+            minlength: 5
+          }
+        },
+        messages: {
+          name: {
+            required: "",
+            minlength: ""
+          },
+          description: {
+            required: "",
+            minlength: ""
+          }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    /********* /Insert Category ***********/
+
+  })
+
+
+</script>

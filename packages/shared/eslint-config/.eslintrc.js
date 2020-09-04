@@ -32,7 +32,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-useless-constructor': 'off',
     'import/no-extraneous-dependencies': 'off',
-    '@typescript-eslint/no-var-requires': 'off'
+    '@typescript-eslint/no-var-requires': 'off',
+    'import/no-unresolved': 'off'
   },
   settings: {
     'import/resolver': {

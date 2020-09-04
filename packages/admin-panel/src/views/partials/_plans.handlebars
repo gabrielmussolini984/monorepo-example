@@ -1,0 +1,223 @@
+<script src="config/configTablesCrud.js"></script>
+<script>
+  $(document).ready(function () {
+    /****  Config DataTable ****/
+    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'plan' });
+    const table = $("#table-plans").DataTable({
+      ...config,
+      columns: [
+        { data: "name" },
+        { data: "billing_cycle" },
+        { data: "price" },
+        { data: "remote_plan_id" },
+        { data: "" }
+      ],
+      columnDefs: [
+        {
+          targets: -1,
+          data: "id",
+          defaultContent: columnAction
+        }
+      ]
+    });
+    /****  /Config DataTable ****/
+
+    /********* Insert Plan ***********/
+    modalInsert('newPlan');
+    inputFocus('namePlan');
+    $('#newPlan').validate(
+      {
+        submitHandler: function (form) {
+          $.ajax({
+            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/plan",
+            type: "POST",
+            data: $(form).serialize(),
+            headers: "contentType: \"application/json\"",
+            success: function (response) {
+              table.ajax.reload();
+              $('#modal-primary').modal('hide');
+              Toast.fire({
+                icon: 'success',
+                title: 'Plano criado com sucesso!'
+              })
+            },
+            error: function (err) {
+              $('#modal-primary').modal('hide');
+              Toast.fire({
+                icon: 'error',
+                title: 'Erro ao criar o plano!'
+              })
+
+            }
+          });
+        },
+        rules: {
+          name: {
+            required: true,
+            minlength: 5
+          },
+          billing_cycle: {
+            required: true
+          },
+          price: {
+            required: true,
+            minlength: 2
+          },
+          remote_plan_id: {
+            required: true,
+            minlength: 5
+          },
+        },
+        messages: {
+          name: {
+            required: "",
+            minlength: ""
+          },
+          billing_cycle: {
+            required: ""
+          },
+          price: {
+            required: "",
+            minlength: ""
+          },
+          remote_plan_id: {
+            required: "",
+            minlength: ""
+          },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    /********* /Insert Plan ***********/
+
+    /********* Edit Plan ***********/
+    $('#modal-secondary').on('show.bs.modal', function (event) {
+      let button = event.relatedTarget.parentElement.parentElement;
+      let line = table.row(button);
+      const plan = line.data();
+      $(`#editPlan input`).each((index, element) => {
+        element.value = plan[element.name] || "";
+      })
+    });
+    $('#editPlan').validate(
+      {
+        submitHandler: function (form) {
+          let params = {}
+          $(form).serializeArray().forEach(item => {
+            params[item.name] = item.value;
+          })
+          $.ajax({
+            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/plan/" + params.id,
+            type: "PUT",
+            data: params,
+            headers: "contentType: \"application/json\"",
+            success: function (response) {
+              table.ajax.reload();
+              $('#modal-secondary').modal('hide');
+              Toast.fire({
+                icon: 'success',
+                title: 'Plano editado com sucesso!'
+              })
+            },
+            error: function (error) {
+              $('#modal-secondary').modal('hide');
+              Toast.fire({
+                icon: 'error',
+                title: 'Erro ao editar plano!'
+              })
+            }
+          })
+
+        },
+        rules: {
+          name: {
+            required: true,
+            minlength: 5
+          },
+          billing_cycle: {
+            required: true
+          },
+          price: {
+            required: true,
+            minlength: 2
+          },
+          remote_plan_id: {
+            required: true,
+            minlength: 5
+          },
+        },
+        messages: {
+          name: {
+            required: "",
+            minlength: ""
+          },
+          billing_cycle: {
+            required: ""
+          },
+          price: {
+            required: "",
+            minlength: ""
+          },
+          remote_plan_id: {
+            required: "",
+            minlength: ""
+          },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    /********* /Edit Plan ***********/
+
+    /********* Delete Plan ***********/
+    $('#modal-danger').on('show.bs.modal', function (event) {
+      const botao = event.relatedTarget.parentElement.parentElement;
+      let line = table.row(botao);
+      const plan = line.data();
+      const modal = $(this);
+      modal.find('.modal-body p').text('Você têm certeza que deseja excluir o plano: ' + plan.name + '?');
+
+      const buttonDelete = modal.find('#modalDelete');
+      buttonDelete.attr("value", plan.id)
+      buttonDelete.click(function (e) {
+        const id = e.target.value;
+        $.ajax({
+          url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/plan/" + id,
+          type: "DELETE",
+          headers: "contentType: \"application/json\"",
+          success: function (response) {
+            table.ajax.reload();
+            Toast.fire({
+              icon: 'success',
+              title: 'Plano removido com sucesso!'
+            })
+          },
+          error: function (err) {
+            Toast.fire({
+              icon: 'error',
+              title: 'Erro ao remover categoria!'
+            })
+          }
+        })
+      })
+    });
+    /********* /Delete Plan ***********/
+  })
+</script>

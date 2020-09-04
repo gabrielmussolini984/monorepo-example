@@ -1,0 +1,266 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <button type="button" class="btn btn-flat btn-block btn-outline-primary mb-3" data-toggle="modal"
+              data-target="#modal-primary">Criar Cliente</button>
+            <table id="table-customers" class="table table-bordered table-striped text-center">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>CPF</th>
+                  <th>Ver Endereço</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<div class="modal fade" id="modal-danger">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-danger">
+      <div class="modal-header">
+        <h4 class="modal-title">Cuidado!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Você têm certeza que deseja excluir esse cliente? &hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Fechar</button>
+        <button id="modalDelete" type="button" class="btn btn-outline-light" data-dismiss="modal">Sim</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- Novo Cliente -->
+<div class="modal fade" id="modal-primary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-primary">
+      <div class="modal-header">
+        <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="newCustomer" action="/" method="POST" role="form" autocomplete="off">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="nameCustomer">Nome</label>
+                <input type="text" id="nameCustomer" name="name" class="form-control"
+                  placeholder="Digite o nome do cliente" autofocus>
+              </div>
+
+              <div class="form-group col-6">
+                <label for="personalDocumentCustomer">CPF</label>
+                <input id="personalDocumentCustomer" name="personal_document" type="text" class="form-control"
+                  placeholder="Digite o cpf do cliente">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-8">
+                <label for="emailCustomer">Email</label>
+                <input type="text" id="emailCustomer" name="email" class="form-control"
+                  placeholder="Digite o email do cliente">
+              </div>
+
+              <div class="form-group col-4">
+                <label for="zipcodeCustomer">Cep</label>
+                <input id="zipcodeCustomer" name="zip_code" type="text" class="form-control" placeholder="Digite o cep">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-10">
+                <label for="streetCustomer">Logradouro</label>
+                <input id="streetCustomer" name="street" type="text" class="form-control"
+                  placeholder="Digite o logradouro">
+              </div>
+              <div class="form-group col-2">
+                <label for="streetNumberCustomer">Número</label>
+                <input id="streetNumberCustomer" name="street_number" type="text" class="form-control" placeholder="Nº">
+              </div>
+
+            </div>
+            <div class="row">
+
+              <div class="form-group col-3">
+                <label for="complementCustomer">Complemento</label>
+                <input id="complementCustomer" name="street_complement" type="text" class="form-control"
+                  placeholder="Ex: AP 206">
+              </div>
+              <div class="form-group col-9">
+                <label for="neighborhoodCustomer">Bairro</label>
+                <input id="neighborhoodCustomer" name="neighborhood" type="text" class="form-control"
+                  placeholder="Digite o nome do bairro">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-10">
+                <label for="cityCustomer">Cidade</label>
+                <input id="cityCustomer" name="city" type="text" class="form-control"
+                  placeholder="Digite o nome da cidade">
+              </div>
+              <div class="form-group col-2">
+                <label for="ufCustomer">Estado</label>
+                <input id="ufCustomer" name="state" type="text" class="form-control" placeholder="UF">
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="form-group col-2">
+                <label for="dddCustomer">DDD</label>
+                <input id="dddCustomer" name="ddd" type="text" class="form-control" placeholder="DDD">
+              </div>
+              <div class="form-group col-10">
+                <label for="phoneCustomer">Telefone</label>
+                <input id="phoneCustomer" name="phone" type="text" class="form-control"
+                  placeholder="Digite o número do telefone">
+              </div>
+
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Criar cliente</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- Editar Cliente -->
+<div class="modal fade" id="modal-secondary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-secondary">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="editCustomer"  role="form" autocomplete="off">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="nameCustomerEdit">Nome</label>
+                <input type="text" id="nameCustomerEdit" name="name" class="form-control"
+                  placeholder="Digite o nome do cliente" autofocus>
+              </div>
+
+              <div class="form-group col-6">
+                <label for="personalDocumentCustomerEdit">CPF</label>
+                <input id="personalDocumentCustomerEdit" name="personal_document" type="text" class="form-control"
+                  placeholder="Digite o cpf do cliente">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-12">
+                <label for="emailClientEdit">Email</label>
+                <input type="text" id="emailClientEdit" name="email" class="form-control"
+                  placeholder="Digite o email do cliente">
+              </div>
+
+              {{!-- <div class="form-group col-4">
+                <label for="zipcodeClientEdit">Cep</label>
+                <input id="zipcodeClientEdit" name="zip_code" type="text" class="form-control" placeholder="Digite o cep">
+              </div> --}}
+            </div>
+
+            {{!-- <div class="row">
+              <div class="form-group col-10">
+                <label for="streetClientEdit">Logradouro</label>
+                <input id="streetClientEdit" name="street" type="text" class="form-control"
+                  placeholder="Digite o logradouro">
+              </div>
+              <div class="form-group col-2">
+                <label for="streetNumberClientEdit">Número</label>
+                <input id="streetNumberClientEdit" name="street_number" type="text" class="form-control" placeholder="Nº">
+              </div>
+
+            </div>
+            <div class="row">
+
+              <div class="form-group col-3">
+                <label for="complementClientEdit">Complemento</label>
+                <input id="complementClientEdit" name="street_complement" type="text" class="form-control"
+                  placeholder="Ex: AP 206">
+              </div>
+              <div class="form-group col-9">
+                <label for="neighborhoodClientEdit">Bairro</label>
+                <input id="neighborhoodClientEdit" name="neighborhood" type="text" class="form-control"
+                  placeholder="Digite o nome do bairro">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-10">
+                <label for="cityClientEdit">Cidade</label>
+                <input id="cityClientEdit" name="city" type="text" class="form-control"
+                  placeholder="Digite o nome da cidade">
+              </div>
+              <div class="form-group col-2">
+                <label for="ufClientEdit">Estado</label>
+                <input id="ufClientEdit" name="state" type="text" class="form-control" placeholder="UF">
+              </div>
+
+            </div> --}}
+
+            {{!-- <div class="row">
+              <div class="form-group col-2">
+                <label for="dddClientEdit">DDD</label>
+                <input id="dddClientEdit" name="ddd" type="text" class="form-control" placeholder="DDD">
+              </div>
+              <div class="form-group col-10">
+                <label for="phoneClientEdit">Telefone</label>
+                <input id="phoneClientEdit" name="phone" type="text" class="form-control"
+                  placeholder="Digite o número do telefone">
+              </div>
+
+            </div> --}}
+          </div>
+          <input type="text" name="id" class="form-control" hidden>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Editar cliente</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+</div>

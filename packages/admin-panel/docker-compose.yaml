@@ -1,0 +1,42 @@
+version: '3'
+
+services: 
+
+  app:
+    build: .
+    container_name: app-admin-panel
+    entrypoint: .docker/entrypoint.sh
+    volumes: 
+      - .:/home/node/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    networks:
+      - default
+      - rabbitmq_saas-store
+      # - redis_saas-store
+
+  db:
+    image: mysql:5.7
+    container_name: db-admin-panel
+    restart: always
+    tty: true
+    ports: 
+      - 3306:3306
+    volumes: 
+      - .mysqldata:/var/lib/mysql
+    environment: 
+      - MYSQL_DATABASE=main_development
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=root
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+  rabbitmq_saas-store:
+    external: true
+  # redis_saas-store:
+  #   external: true

@@ -3,18 +3,36 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
-    "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/server.ts",
+    "dev": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/shared/infra/http/server.ts",
+    "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn  src/shared/infra/http/server.ts",
     "test": "jest"
   },
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "helmet": "^4.1.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "5.15.1",
+    "sequelize-typescript": "^1.1.0",
+    "tsyringe": "^4.3.0",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
-    "typescript": "^4.0.2",
-    "ts-node-dev": "^1.0.0-pre.61",
     "jest": "^26.4.2",
-    "ts-jest": "^26.3.0"
+    "ts-jest": "^26.3.0",
+    "ts-node-dev": "^1.0.0-pre.61",
+    "typescript": "^4.0.2",
+    "tsconfig-paths": "^3.9.0"
   }
 }
