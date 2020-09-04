@@ -19,9 +19,12 @@ jobs:
 
       - name: cd e chmod
         run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh
-        
+
+      - name: ls
+        run: ls
+
       - name: Build Image
-        run: docker-compose up --build -d
+        run: cd packages/admin-panel/ && docker-compose up --build -d
       
       - name: teste
         run: docker ps
