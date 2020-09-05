@@ -8,7 +8,7 @@ import { IUpdateCategoryDTO } from '@modules/category/dtos/IUpdateCategoryDTO';
 export interface ICategoryRepository {
   create(data: ICreateCategoryDTO): Promise<Category>;
   findAndCountAll(
-    data: IFindAndCountAllDTO,
+    data: IFindAndCountAllDTO
   ): Promise<{
     rows: Category[];
     count: number;

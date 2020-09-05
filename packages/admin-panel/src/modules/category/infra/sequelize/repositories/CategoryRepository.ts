@@ -17,12 +17,12 @@ export class CategoryRepository implements ICategoryRepository {
   public async create({
     name,
     description,
-    tenant_id,
+    tenant_id
   }: ICreateCategoryDTO): Promise<Category> {
     const category = await this.sequelizeRepository.create({
       name,
       description,
-      tenant_id,
+      tenant_id
     });
     return category;
   }
@@ -30,7 +30,7 @@ export class CategoryRepository implements ICategoryRepository {
   async findAndCountAll({
     offset,
     limit,
-    tenant_id,
+    tenant_id
   }: IFindAndCountAllDTO): Promise<{
     rows: Category[];
     count: number;
@@ -39,7 +39,7 @@ export class CategoryRepository implements ICategoryRepository {
       where: { tenant_id },
       limit,
       order: [['created_at', 'DESC']],
-      offset,
+      offset
     });
     return categories;
   }
@@ -47,14 +47,14 @@ export class CategoryRepository implements ICategoryRepository {
   public async update({
     name,
     description,
-    id,
+    id
   }: IUpdateCategoryDTO): Promise<[number, Category[]]> {
     const categoryUpdated = await this.sequelizeRepository.update(
       {
         name,
-        description,
+        description
       },
-      { where: { id } },
+      { where: { id } }
     );
     return categoryUpdated;
   }

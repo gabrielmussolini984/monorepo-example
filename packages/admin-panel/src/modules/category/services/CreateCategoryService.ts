@@ -12,19 +12,19 @@ interface IRequest {
 export class CreateCategoryService {
   constructor(
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository,
+    private categoryRepository: ICategoryRepository
   ) {}
 
   public async execute({
     name,
     description,
-    tenant_id,
+    tenant_id
   }: IRequest): Promise<Category> {
     // const checkCategoryExist = await this.CategoryRepository.findByName({name});
     const category = await this.categoryRepository.create({
       name,
       description,
-      tenant_id,
+      tenant_id
     });
 
     return category;
