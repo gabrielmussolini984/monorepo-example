@@ -43,10 +43,10 @@ export class FakeCategoryRepository implements ICategoryRepository {
     description,
     id
   }: IUpdateCategoryDTO): Promise<[number, Category[]]> {
-    const categoryExist = this.categories.find(
-      (category) => category.id === id
-    );
-    if (!categoryExist) return [0, this.categories];
+    // const categoryExist = this.categories.find(
+    //   (category) => category.id === id
+    // );
+    // if (!categoryExist) return [0, this.categories];
     const categoryUpdated = this.categories.map((category) => {
       if (category.id === id) {
         Object.assign(category, { name, description });
@@ -57,10 +57,10 @@ export class FakeCategoryRepository implements ICategoryRepository {
   }
 
   public async delete({ id }: { id: string }): Promise<number> {
-    const categoryExist = this.categories.find(
-      (category) => category.id === id
-    );
-    if (!categoryExist) return 0;
+    // const categoryExist = this.categories.find(
+    //   (category) => category.id === id
+    // );
+    // if (!categoryExist) return 0;
     this.categories = this.categories.filter((category) => category.id !== id);
     return 1;
   }
