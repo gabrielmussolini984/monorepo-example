@@ -8,5 +8,9 @@ module.exports = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/src/'
   }),
-  transform: { '\\.ts$': ['ts-jest'] }
+  transform: { '\\.ts$': ['ts-jest'] },
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/modules/**/services/*.ts'],
+  coverageDirectory: '<rootDir>/coverage',
+  coverageReporters: ['text-summary', 'lcov']
 };
