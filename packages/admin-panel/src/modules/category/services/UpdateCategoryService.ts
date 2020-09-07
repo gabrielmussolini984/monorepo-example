@@ -11,18 +11,18 @@ interface IRequest {
 export class UpdateCategoryService {
   constructor(
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository,
+    private categoryRepository: ICategoryRepository
   ) {}
 
   public async execute({
     name,
     description,
-    id,
+    id
   }: IRequest): Promise<[number, Category[]]> {
     const categoryUpdated = await this.categoryRepository.update({
       name,
       description,
-      id,
+      id
     });
 
     return categoryUpdated;

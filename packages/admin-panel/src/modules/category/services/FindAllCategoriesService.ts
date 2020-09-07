@@ -12,13 +12,13 @@ interface IRequest {
 export class FindAllCategoriesService {
   constructor(
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository,
+    private categoryRepository: ICategoryRepository
   ) {}
 
   public async execute({
     offset,
     limit,
-    tenant_id,
+    tenant_id
   }: IRequest): Promise<{
     rows: Category[];
     count: number;
@@ -26,7 +26,7 @@ export class FindAllCategoriesService {
     const categories = await this.categoryRepository.findAndCountAll({
       offset,
       limit,
-      tenant_id,
+      tenant_id
     });
 
     return categories;

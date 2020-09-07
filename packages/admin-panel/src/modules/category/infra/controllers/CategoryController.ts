@@ -13,14 +13,14 @@ export class CategoryController {
     const categories = await findAllCategories.execute({
       offset: Number(offset),
       limit: Number(limit),
-      tenant_id: req.tenant.id,
+      tenant_id: req.tenant.id
     });
 
     return res.json({
       draw: req.params.draw,
       recordsTotal: categories.count,
       data: categories.rows,
-      recordsFiltered: categories.count,
+      recordsFiltered: categories.count
     });
   }
 
@@ -30,7 +30,7 @@ export class CategoryController {
     await createCategory.execute({
       name,
       description,
-      tenant_id: req.tenant.id,
+      tenant_id: req.tenant.id
     });
     return res.json({ message: 'Category has been create' });
   }

@@ -5,7 +5,7 @@ import { ICategoryRepository } from '@modules/category/repositories/ICategoryRep
 export class DeleteCategoryService {
   constructor(
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository,
+    private categoryRepository: ICategoryRepository
   ) {}
 
   public async execute({ id }: { id: string }): Promise<number> {

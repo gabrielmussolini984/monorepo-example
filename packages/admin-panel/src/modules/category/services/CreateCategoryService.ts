@@ -20,7 +20,11 @@ export class CreateCategoryService {
     description,
     tenant_id
   }: IRequest): Promise<Category> {
-    // const checkCategoryExist = await this.CategoryRepository.findByName({name});
+    // const checkCategoryExist = await this.categoryRepository.findByName({
+    //   name,
+    //   tenant_id
+    // });
+    // if (checkCategoryExist) return null;
     const category = await this.categoryRepository.create({
       name,
       description,
