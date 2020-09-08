@@ -5,7 +5,7 @@ import { ICustomerRepository } from '@modules/customer/repositories/ICustomerRep
 export class DeleteCustomerService {
   constructor(
     @inject('CustomerRepository')
-    private customerRepository: ICustomerRepository,
+    private customerRepository: ICustomerRepository
   ) {}
 
   public async execute({ id }: { id: string }): Promise<number> {

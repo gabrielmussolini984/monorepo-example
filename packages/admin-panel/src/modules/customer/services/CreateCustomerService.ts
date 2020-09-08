@@ -14,20 +14,20 @@ interface IRequest {
 export class CreateCustomerService {
   constructor(
     @inject('CustomerRepository')
-    private customerRepository: ICustomerRepository,
+    private customerRepository: ICustomerRepository
   ) {}
 
   public async execute({
     name,
     email,
     personal_document,
-    addresses,
+    addresses
   }: IRequest): Promise<Customer> {
     const customer = await this.customerRepository.create({
       name,
       email,
       personal_document,
-      addresses,
+      addresses
     });
 
     return customer;

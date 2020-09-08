@@ -18,15 +18,15 @@ export class CustomerRepository implements ICustomerRepository {
     name,
     email,
     personal_document,
-    id,
+    id
   }: IUpdateCustomerDTO): Promise<[number, Customer[]]> {
     const customerUpdated = await this.sequelizeRepository.update(
       {
         name,
         email,
-        personal_document,
+        personal_document
       },
-      { where: { id } },
+      { where: { id } }
     );
     return customerUpdated;
   }
@@ -35,16 +35,16 @@ export class CustomerRepository implements ICustomerRepository {
     name,
     email,
     personal_document,
-    addresses,
+    addresses
   }: ICreateCustomerDTO): Promise<Customer> {
     const newCustomer = await this.sequelizeRepository.create(
       {
         name,
         email,
         personal_document,
-        addresses,
+        addresses
       },
-      { include: [CustomerAddress] },
+      { include: [CustomerAddress] }
     );
 
     return newCustomer;
@@ -52,7 +52,7 @@ export class CustomerRepository implements ICustomerRepository {
 
   async findAndCountAll({
     offset,
-    limit,
+    limit
   }: {
     offset: number;
     limit: number;
@@ -60,7 +60,7 @@ export class CustomerRepository implements ICustomerRepository {
     const customers = await this.sequelizeRepository.findAndCountAll({
       limit,
       order: [['created_at', 'DESC']],
-      offset,
+      offset
     });
     return customers;
   }

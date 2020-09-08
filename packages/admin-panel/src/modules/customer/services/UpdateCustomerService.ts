@@ -13,20 +13,20 @@ interface IRequest {
 export class UpdateCustomerService {
   constructor(
     @inject('CustomerRepository')
-    private customerRepository: ICustomerRepository,
+    private customerRepository: ICustomerRepository
   ) {}
 
   public async execute({
     name,
     email,
     personal_document,
-    id,
+    id
   }: IRequest): Promise<[number, Customer[]]> {
     const customerUpdated = await this.customerRepository.update({
       name,
       email,
       personal_document,
-      id,
+      id
     });
 
     return customerUpdated;

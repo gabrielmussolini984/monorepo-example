@@ -11,20 +11,19 @@ interface IRequest {
 export class FindAllCustomersService {
   constructor(
     @inject('CustomerRepository')
-    private customerRepository: ICustomerRepository,
+    private customerRepository: ICustomerRepository
   ) {}
 
   public async execute({
     offset,
-    limit,
+    limit
   }: IRequest): Promise<{
     rows: Customer[];
     count: number;
   }> {
-    console.log('chegou aqui');
     const customers = await this.customerRepository.findAndCountAll({
       offset,
-      limit,
+      limit
     });
 
     return customers;

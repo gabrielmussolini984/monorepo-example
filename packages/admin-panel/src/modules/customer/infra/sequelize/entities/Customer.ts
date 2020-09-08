@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   IsUUID,
   DataType,
-  Default,
+  Default
 } from 'sequelize-typescript';
 import { CustomerAddress, ICustomerAddress } from './CustomerAddress';
 

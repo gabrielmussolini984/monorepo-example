@@ -16,7 +16,7 @@ export interface ICustomerRepository {
     name,
     email,
     personal_document,
-    id,
+    id
   }: {
     name: string;
     email: string;

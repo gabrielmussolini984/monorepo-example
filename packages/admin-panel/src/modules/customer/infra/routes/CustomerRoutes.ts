@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.render('customer/index', {
     activeConf: 'active',
     activeCustomer: 'active',
-    title: 'Clientes',
+    title: 'Clientes'
   });
 });
 

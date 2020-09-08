@@ -22,14 +22,14 @@ export class CustomerController {
     const findAllCustomers = container.resolve(FindAllCustomersService);
     const customers = await findAllCustomers.execute({
       offset: Number(offset),
-      limit: Number(limit),
+      limit: Number(limit)
     });
 
     return res.json({
       draw: req.params.draw,
       recordsTotal: customers.count,
       data: customers.rows,
-      recordsFiltered: customers.count,
+      recordsFiltered: customers.count
     });
   }
 
@@ -46,7 +46,7 @@ export class CustomerController {
       city,
       state,
       ddd,
-      phone,
+      phone
     } = req.body;
     const createCustomer = container.resolve(CreateCustomerService);
     await createCustomer.execute({
@@ -63,9 +63,9 @@ export class CustomerController {
           city,
           state,
           ddd,
-          phone,
-        },
-      ],
+          phone
+        }
+      ]
     });
     return res.json({ message: 'Category has been create' });
   }

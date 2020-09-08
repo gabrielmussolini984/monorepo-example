@@ -9,7 +9,7 @@ import {
   ForeignKey,
   BelongsTo,
   Default,
-  DataType,
+  DataType
 } from 'sequelize-typescript';
 import { Customer } from './Customer';
 
