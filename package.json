@@ -6,7 +6,6 @@
     "@saas-store/eslint-config": "*",
     "@types/jest": "^26.0.12",
     "jest": "^26.4.2",
-    "lerna": "^3.22.1",
     "ts-jest": "^26.3.0"
   },
   "workspaces": {
