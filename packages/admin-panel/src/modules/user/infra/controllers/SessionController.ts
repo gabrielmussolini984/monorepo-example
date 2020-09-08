@@ -6,12 +6,12 @@ export class SessionController {
       return res.render('dashboard', {
         activeGraphic: 'active',
         activeOne: 'active',
-        title: 'Gráficos',
+        title: 'Gráficos'
       });
     }
     return res.render('login', {
       layout: 'mainLogin',
-      tenant: req.tenant,
+      tenant: req.tenant
     });
   }
 }

@@ -10,7 +10,7 @@ export class UserController {
       name,
       email,
       password,
-      tenant_id: req.tenant.id,
+      tenant_id: req.tenant.id
     });
     return res.json({ message: 'User has been create' });
   }

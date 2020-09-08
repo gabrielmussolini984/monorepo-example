@@ -12,21 +12,21 @@ interface IRequest {
 @injectable()
 export class CreateUserService {
   constructor(
-    @inject('UserRepository') private userRepository: IUserRepository,
+    @inject('UserRepository') private userRepository: IUserRepository
   ) {}
 
   public async execute({
     name,
     email,
     password,
-    tenant_id,
+    tenant_id
   }: IRequest): Promise<User> {
     // const checkCategoryExist = await this.CategoryRepository.findByName({name});
     const user = await this.userRepository.create({
       name,
       email,
       password,
-      tenant_id,
+      tenant_id
     });
     return user;
   }

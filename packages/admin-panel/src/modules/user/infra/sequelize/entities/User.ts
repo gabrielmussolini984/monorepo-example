@@ -10,7 +10,7 @@ import {
   IsUUID,
   BeforeSave,
   DataType,
-  Default,
+  Default
 } from 'sequelize-typescript';
 import bcrypt from 'bcryptjs';
 import { Tenant } from '../../../../tenant/infra/sequelize/entities/Tenant';

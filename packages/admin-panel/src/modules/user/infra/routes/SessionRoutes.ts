@@ -11,8 +11,8 @@ router.post(
   passport.authenticate('local', {
     failureRedirect: '/',
     successRedirect: '/',
-    failureFlash: true,
-  }),
+    failureFlash: true
+  })
 );
 
 export default router;

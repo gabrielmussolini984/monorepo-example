@@ -10,7 +10,7 @@ interface IRequest {
 @injectable()
 export class FindByEmailService {
   constructor(
-    @inject('UserRepository') private userRepository: IUserRepository,
+    @inject('UserRepository') private userRepository: IUserRepository
   ) {}
 
   public async execute({ email, tenant_id }: IRequest): Promise<User> {

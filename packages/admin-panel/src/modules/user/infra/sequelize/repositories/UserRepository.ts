@@ -14,13 +14,13 @@ export class UserRepository implements IUserRepository {
 
   public async findByEmail({
     email,
-    tenant_id,
+    tenant_id
   }: {
     email: string;
     tenant_id: string;
   }): Promise<User> {
     const user = await this.sequelizeRepository.findOne({
-      where: { email, tenant_id },
+      where: { email, tenant_id }
     });
     return user;
   }
@@ -34,13 +34,13 @@ export class UserRepository implements IUserRepository {
     name,
     email,
     password,
-    tenant_id,
+    tenant_id
   }: ICreateUserDTO): Promise<User> {
     const user = await this.sequelizeRepository.create({
       name,
       email,
       password,
-      tenant_id,
+      tenant_id
     });
     return user;
   }

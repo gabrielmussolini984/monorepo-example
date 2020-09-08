@@ -9,7 +9,7 @@ interface IRequest {
 @injectable()
 export class FindByIdService {
   constructor(
-    @inject('UserRepository') private userRepository: IUserRepository,
+    @inject('UserRepository') private userRepository: IUserRepository
   ) {}
 
   public async execute({ id }: IRequest): Promise<User> {
