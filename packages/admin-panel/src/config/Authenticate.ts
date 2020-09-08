@@ -15,7 +15,7 @@ export default (): void => {
         const tenant_id = req.tenant?.id || '';
         const user = await UserRepo.findByEmail({
           email,
-          tenant_id,
+          tenant_id
         });
         if (!user) return done(null, false);
         const comparePassword = new ComparePasswordService();
@@ -23,8 +23,8 @@ export default (): void => {
           return done(null, false, { message: 'Incorrect password.' });
 
         return done(null, user);
-      },
-    ),
+      }
+    )
   );
 
   passport.serializeUser((user: User, done) => {

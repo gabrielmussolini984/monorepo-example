@@ -17,16 +17,16 @@ import { UserRepository } from '@modules/user/infra/sequelize/repositories/UserR
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
-  CategoryRepository,
+  CategoryRepository
 );
 
 container.registerSingleton<ICustomerRepository>(
   'CustomerRepository',
-  CustomerRepository,
+  CustomerRepository
 );
 container.registerSingleton<IPlanRepository>('PlanRepository', PlanRepository);
 container.registerSingleton<ITenantRepository>(
   'TenantRepository',
-  TenantRepository,
+  TenantRepository
 );
 container.registerSingleton<IUserRepository>('UserRepository', UserRepository);

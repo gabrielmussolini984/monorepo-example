@@ -35,14 +35,14 @@ export class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(
-      express.static(resolve(__dirname, '..', '..', '..', 'public')),
+      express.static(resolve(__dirname, '..', '..', '..', 'public'))
     );
     this.app.use(
       session({
         secret: 'keyboard cat',
         resave: true,
-        saveUninitialized: true,
-      }),
+        saveUninitialized: true
+      })
     );
     this.app.use(passport.initialize());
     this.app.use(passport.session());
@@ -58,14 +58,14 @@ export class App {
       if (err instanceof AppError) {
         return res.status(err.statusCode).render('errors/404', {
           layout: 'mainLogin',
-          tenant: req.tenant,
+          tenant: req.tenant
         });
       }
       // eslint-disable-next-line
       console.log(err);
       return res.status(500).render('errors/500', {
         layout: 'mainLogin',
-        tenant: req.tenant,
+        tenant: req.tenant
       });
     });
   }
