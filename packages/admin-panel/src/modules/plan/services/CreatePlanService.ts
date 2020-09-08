@@ -12,21 +12,21 @@ interface IRequest {
 @injectable()
 export class CreatePlanService {
   constructor(
-    @inject('PlanRepository') private planRepository: IPlanRepository,
+    @inject('PlanRepository') private planRepository: IPlanRepository
   ) {}
 
   public async execute({
     name,
     billing_cycle,
     price,
-    remote_plan_id,
+    remote_plan_id
   }: IRequest): Promise<Plan> {
     // const checkCategoryExist = await this.CategoryRepository.findByName({name});
     const plan = await this.planRepository.create({
       name,
       billing_cycle,
       price,
-      remote_plan_id,
+      remote_plan_id
     });
 
     return plan;

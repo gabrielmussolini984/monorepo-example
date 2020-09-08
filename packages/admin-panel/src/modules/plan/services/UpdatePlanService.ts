@@ -12,7 +12,7 @@ interface IRequest {
 @injectable()
 export class UpdatePlanService {
   constructor(
-    @inject('PlanRepository') private planRepository: IPlanRepository,
+    @inject('PlanRepository') private planRepository: IPlanRepository
   ) {}
 
   public async execute({
@@ -20,14 +20,14 @@ export class UpdatePlanService {
     billing_cycle,
     price,
     remote_plan_id,
-    id,
+    id
   }: IRequest): Promise<[number, Plan[]]> {
     const planUpdated = await this.planRepository.update({
       name,
       billing_cycle,
       price,
       remote_plan_id,
-      id,
+      id
     });
 
     return planUpdated;

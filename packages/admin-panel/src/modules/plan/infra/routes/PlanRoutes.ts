@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   res.render('plan/index', {
     activeConf: 'active',
     activePlan: 'active',
-    title: 'Planos',
+    title: 'Planos'
   });
 });
 

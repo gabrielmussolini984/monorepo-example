@@ -11,14 +11,14 @@ export class PlanController {
     const findAllPlans = container.resolve(FindAllPlansService);
     const plans = await findAllPlans.execute({
       offset: Number(offset),
-      limit: Number(limit),
+      limit: Number(limit)
     });
 
     return res.json({
       draw: req.params.draw,
       recordsTotal: plans.count,
       data: plans.rows,
-      recordsFiltered: plans.count,
+      recordsFiltered: plans.count
     });
   }
 
@@ -29,7 +29,7 @@ export class PlanController {
       name,
       billing_cycle,
       price,
-      remote_plan_id,
+      remote_plan_id
     });
     return res.json({ message: 'Plan has been create' });
   }
@@ -43,7 +43,7 @@ export class PlanController {
       billing_cycle,
       price,
       remote_plan_id,
-      id,
+      id
     });
     return res.json({ message: 'Plan has been updated ' });
   }

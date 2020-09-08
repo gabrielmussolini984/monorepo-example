@@ -17,20 +17,20 @@ export class PlanRepository implements IPlanRepository {
     name,
     billing_cycle,
     price,
-    remote_plan_id,
+    remote_plan_id
   }: ICreatePlanDTO): Promise<Plan> {
     const plan = await this.sequelizeRepository.create({
       name,
       billing_cycle,
       price,
-      remote_plan_id,
+      remote_plan_id
     });
     return plan;
   }
 
   async findAndCountAll({
     offset,
-    limit,
+    limit
   }: {
     offset: number;
     limit: number;
@@ -41,7 +41,7 @@ export class PlanRepository implements IPlanRepository {
     const plans = await this.sequelizeRepository.findAndCountAll({
       limit,
       order: [['created_at', 'DESC']],
-      offset,
+      offset
     });
     return plans;
   }
@@ -51,16 +51,16 @@ export class PlanRepository implements IPlanRepository {
     billing_cycle,
     price,
     remote_plan_id,
-    id,
+    id
   }: IUpdatePlanDTO): Promise<[number, Plan[]]> {
     const planUpdated = await this.sequelizeRepository.update(
       {
         name,
         billing_cycle,
         price,
-        remote_plan_id,
+        remote_plan_id
       },
-      { where: { id } },
+      { where: { id } }
     );
     return planUpdated;
   }

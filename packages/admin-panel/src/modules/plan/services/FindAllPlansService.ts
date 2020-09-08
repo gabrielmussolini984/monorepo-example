@@ -10,19 +10,19 @@ interface IRequest {
 @injectable()
 export class FindAllPlansService {
   constructor(
-    @inject('PlanRepository') private planRepository: IPlanRepository,
+    @inject('PlanRepository') private planRepository: IPlanRepository
   ) {}
 
   public async execute({
     offset,
-    limit,
+    limit
   }: IRequest): Promise<{
     rows: Plan[];
     count: number;
   }> {
     const plans = await this.planRepository.findAndCountAll({
       offset,
-      limit,
+      limit
     });
 
     return plans;
