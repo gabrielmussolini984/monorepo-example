@@ -15,6 +15,8 @@ import { TenantRepository } from '@modules/tenant/infra/sequelize/repositories/T
 import { IUserRepository } from '@modules/user/repositories/IUserRepository';
 import { UserRepository } from '@modules/user/infra/sequelize/repositories/UserRepository';
 
+import '@modules/user/providers/HashProvider';
+
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
   CategoryRepository
