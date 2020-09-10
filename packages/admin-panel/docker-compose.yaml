@@ -8,7 +8,6 @@ services:
     entrypoint: .docker/entrypoint.sh
     volumes: 
       - .:/home/node/app
-      - ../..:/home/node/app
     ports:
       - 3000:3000
     depends_on:
