@@ -1,11 +1,11 @@
+import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { CreateUserService } from '@modules/user/services/CreateUserService';
-import { UserRepository } from '@modules/user/infra/sequelize/repositories/UserRepository';
 
 export class UserController {
   public async store(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body;
-    const createUser = new CreateUserService(new UserRepository());
+    const createUser = container.resolve(CreateUserService);
     await createUser.execute({
       name,
       email,
