@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import { User } from '@modules/user/infra/sequelize/entities/User';
 import { IUserRepository } from '@modules/user/repositories/IUserRepository';
 // DTO's
@@ -15,7 +15,7 @@ export class FakeUserRepository implements IUserRepository {
   }: ICreateUserDTO): Promise<User> {
     const user = new User();
     Object.assign(user, {
-      id: uuid.v4(),
+      id: uuid(),
       name,
       email,
       password,

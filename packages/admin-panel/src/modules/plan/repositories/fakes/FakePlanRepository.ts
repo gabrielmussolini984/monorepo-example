@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import { Plan } from '@modules/plan/infra/sequelize/entities/Plan';
 import { IPlanRepository } from '@modules/plan/repositories/IPlanRepository';
 // DTO's
@@ -16,7 +16,7 @@ export class FakePlanRepository implements IPlanRepository {
   }: ICreatePlanDTO): Promise<Plan> {
     const plan = new Plan();
     Object.assign(plan, {
-      id: uuid.v4(),
+      id: uuid(),
       name,
       billing_cycle,
       price,

@@ -1,4 +1,5 @@
-import uuid from 'uuid';
+// import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import { Category } from '@modules/category/infra/sequelize/entities/Category';
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
 // DTO's
@@ -15,7 +16,7 @@ export class FakeCategoryRepository implements ICategoryRepository {
     tenant_id
   }: ICreateCategoryDTO): Promise<Category> {
     const category = new Category();
-    Object.assign(category, { id: uuid.v4(), name, description, tenant_id });
+    Object.assign(category, { id: uuid(), name, description, tenant_id });
 
     this.categories.push(category);
 
