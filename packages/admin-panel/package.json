@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@types/passport-local": "^1.0.33",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",

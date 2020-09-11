@@ -7,7 +7,7 @@ import {
   IsUUID,
   PrimaryKey,
   DataType,
-  Default,
+  Default
 } from 'sequelize-typescript';
 
 @Table

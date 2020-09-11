@@ -11,13 +11,13 @@ export class TenantRepository implements ITenantRepository {
   }
 
   public async findBySubdomain({
-    fallback_subdomain,
+    fallback_subdomain
   }: {
     fallback_subdomain: string;
   }): Promise<Tenant> {
     const tenant = await this.sequelizeRepository.findOne({
       where: { fallback_subdomain },
-      raw: true,
+      raw: true
     });
     return tenant;
   }
