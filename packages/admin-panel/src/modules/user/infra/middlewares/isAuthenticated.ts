@@ -5,8 +5,7 @@ export const isAuthenticated = (
   res: Response,
   next: NextFunction
 ): void => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+  if (req.isAuthenticated()) return next();
+
   return res.redirect('/');
 };

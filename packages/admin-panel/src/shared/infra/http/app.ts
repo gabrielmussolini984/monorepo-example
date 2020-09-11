@@ -8,14 +8,12 @@ import passport from 'passport';
 // import cors from 'cors';
 // import helmet from 'helmet';
 import flash from 'connect-flash';
-import localAuth from '@config/Authenticate';
+// import '@config/Authenticate';
 import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
 import { AppError } from '../../errors/MainError';
 import { globalVars } from './middlewares/globalVariables';
 import '@shared/container';
 import routes from './routes';
-
-localAuth();
 
 export class App {
   app: Express;
@@ -29,14 +27,14 @@ export class App {
     // this.app.use(helmet());
     // this.app.use(cors());
 
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.set('views', join(__dirname, '..', '..', '..', 'views'));
     this.app.engine('handlebars', handlebars());
     this.app.set('view engine', 'handlebars');
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(
-      express.static(resolve(__dirname, '..', '..', '..', 'public'))
-    );
+    // this.app.use(
+    //   express.static(resolve(__dirname, '..', '..', '..', 'public'))
+    // );
     this.app.use(
       session({
         secret: 'keyboard cat',
