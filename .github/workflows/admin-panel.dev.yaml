@@ -39,7 +39,7 @@ jobs:
         run: docker exec app-admin-panel yarn test
 
       - name: teste2
-      run: docker ps
+        run: docker ps
 
       - name: Run Tests 2
         run: docker exec -it app-admin-panel yarn test
