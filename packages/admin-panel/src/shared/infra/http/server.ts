@@ -6,6 +6,6 @@ const connect = async () => {
   const { app } = new App();
   const port = process.env.PORT || 3000;
   // eslint-disable-next-line
-  app.listen(port, () => console.log('Serveszr Runniag st por 3000'));
+  app.listen(port, () => console.log('Serveszr Runniagst por 3000'));
 };
 connect();
