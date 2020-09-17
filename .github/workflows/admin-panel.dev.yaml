@@ -21,7 +21,7 @@ jobs:
         run: ls
 
       - name: cd e chmod
-        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker-compose up --build -d
+        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker-compose up -d
 
       - name: Rodando os testes
         run: yarn && yarn test
