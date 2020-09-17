@@ -25,7 +25,6 @@ export class AuthenticateUserService {
       email,
       tenant_id
     });
-    // console.log(user);
     if (!user) throw new AppError('Incorrect email/password combination', 401);
 
     const passwordIsMatch = await this.hashProvider.compare(
@@ -35,7 +34,6 @@ export class AuthenticateUserService {
 
     if (!passwordIsMatch)
       throw new AppError('Incorrect email/password combination', 401);
-
     return user;
   }
 }

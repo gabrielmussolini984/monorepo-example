@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   res.render('category/index', {
     activeAdmin: 'active',
     activeCategory: 'active',
-    title: 'Categorias',
+    title: 'Categorias'
   });
 });
 router.get('/index', Category.index);

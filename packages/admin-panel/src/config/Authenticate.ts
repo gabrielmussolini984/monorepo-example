@@ -26,12 +26,12 @@ passport.use(
         const authenticateUserService = container.resolve(
           AuthenticateUserService
         );
+
         const userSuccessLogin = await authenticateUserService.execute({
           email,
           password,
           tenant_id: req.tenant.id
         });
-
         return done(null, userSuccessLogin);
       } catch (error) {
         return done(null, false, { message: error.message });

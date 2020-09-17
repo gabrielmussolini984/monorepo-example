@@ -1,10 +1,27 @@
-<script src="config/configTablesCrud.js"></script>
+
 <script>
   $(document).ready(function () {
     /****  Config DataTable ****/
-    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
+    //const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
     const table = $("#tabela-categories").DataTable({
-      ...config,
+      "serverSide": true,
+      ajax: "http://store2.admin.superstoree.test:3000/category/index",
+      "searching": false,
+        "ordering": false,
+        
+      language: {
+        lengthMenu: "Mostrar _MENU_ dados por página",
+        zeroRecords: "Nothing found - sorry",
+        info: "Mostrando _PAGE_ de _PAGES_ páginas. Total de _MAX_ registros",
+        infoEmpty: "No records available",
+        infoFiltered: "(filtered from _MAX_ total records)",
+        search: "Pesquisar",
+        paginate: {
+          next: "Próximo",
+          previous: "Anterior",
+        },
+
+      },
       columns: [
         { data: "name" },
         { data: "created_at" },
@@ -14,7 +31,7 @@
         {
           targets: -1,
           data: "id",
-          defaultContent: columnAction
+          defaultContent: "columnAction"
         },
         {
           targets: 1,
@@ -134,8 +151,11 @@
     });
     /********* /Delete Category ***********/
     /********* Insert Category ***********/
-    modalInsert('newCategory');
-    inputFocus('nameCategory');
+    // modalInsert('newCategory');
+
+
+
+    // inputFocus('nameCategory');
     $('#newCategory').validate(
       {
         submitHandler: function (form) {
