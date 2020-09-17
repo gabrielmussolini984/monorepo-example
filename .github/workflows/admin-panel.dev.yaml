@@ -24,7 +24,7 @@ jobs:
         run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker-compose up --build -d
 
       - name: Rodando os testes
-        run: yarn test
+        run: yarn && yarn test
 
       # - name: Build mage
       #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
