@@ -23,11 +23,8 @@ jobs:
       - name: cd e chmod
         run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker-compose up --build -d
 
-      - name: ls onde estou
-        run: ls
-      
-      - name: teste
-        run: docker ps
+      - name: Rodando os testes
+        run: yarn test
 
       # - name: Build mage
       #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
