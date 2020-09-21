@@ -25,18 +25,3 @@ jobs:
 
       - name: Rodando os testes
         run: yarn && yarn test
-
-      # - name: Build mage
-      #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
-
-      # - name: Run Image
-      #   run: docker run -d  --name admin-panel -p 3000:3000 gabriel984/admin-panel:latest
-
-      - name: Run Tests
-        run: docker exec app-admin-panel yarn test
-
-      - name: teste2
-        run: docker ps
-
-      - name: Run Tests 2
-        run: docker exec -it app-admin-panel yarn test

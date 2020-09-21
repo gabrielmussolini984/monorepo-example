@@ -1,13 +1,28 @@
 
 <script>
+  let domain;
+  {{#if tenant.domain}}
+      domain = "{{tenant.domain}}";
+  {{else}}
+      domain = "http://{{tenant.fallback_subdomain}}.admin.superstoree.test:3000";
+  {{/if}}
   $(document).ready(function () {
+    const Toast = Swal.mixin({
+      position: 'center',
+      showConfirmButton: false,
+      timer: 2000,
+      backdrop: false
+    });
+
     /****  Config DataTable ****/
     //const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
     const table = $("#tabela-categories").DataTable({
-      "serverSide": true,
-      ajax: "http://store2.admin.superstoree.test:3000/category/index",
-      "searching": false,
-        "ordering": false,
+      serverSide: true,
+      responsive: true,
+      autoWidth: false,
+      ajax: `${domain}/category/index`,
+      searching: false,
+        ordering: false,
         
       language: {
         lengthMenu: "Mostrar _MENU_ dados por página",
@@ -19,8 +34,7 @@
         paginate: {
           next: "Próximo",
           previous: "Anterior",
-        },
-
+        }
       },
       columns: [
         { data: "name" },
@@ -31,7 +45,7 @@
         {
           targets: -1,
           data: "id",
-          defaultContent: "columnAction"
+          defaultContent: `<button type="button" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modal-secondary">Editar</button><button type="button" class="btn btn-outline-danger btn-xs ml-2" data-toggle="modal" data-target="#modal-danger">Remover</button>`
         },
         {
           targets: 1,
@@ -53,7 +67,7 @@
             params[item.name] = item.value;
           })
           $.ajax({
-            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + params.id,
+            url: `${domain}/category/${params.id}` ,
             type: "PUT",
             data: params,
             headers: "contentType: \"application/json\"",
@@ -107,6 +121,11 @@
         }
       });
 
+    $('#modal-primary').on('show.bs.modal', function (event) {
+      $('#newCategory').trigger('reset');
+      $('input').removeClass('is-invalid');
+      $('#categoryName')[0].focus();
+    });
     $('#modal-secondary').on('show.bs.modal', function (event) {
       let button = event.relatedTarget.parentElement.parentElement;
       let line = table.row(button);
@@ -130,7 +149,7 @@
       buttonDelete.click(function (e) {
         const id = e.target.value;
         $.ajax({
-          url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + id,
+          url: `${domain}/category/${id}`,
           type: "DELETE",
           headers: "contentType: \"application/json\"",
           success: function (response) {
@@ -154,13 +173,14 @@
     // modalInsert('newCategory');
 
 
-
+    {{tenant.domain}}
     // inputFocus('nameCategory');
     $('#newCategory').validate(
       {
         submitHandler: function (form) {
+          console.log('teste')
           $.ajax({
-            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category",
+            url: `${domain}/category`,
             type: "POST",
             data: $(form).serialize(),
             headers: "contentType: \"application/json\"",
