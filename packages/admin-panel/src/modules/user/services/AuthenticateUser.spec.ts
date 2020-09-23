@@ -1,4 +1,5 @@
 import { FakeUserRepository } from '../repositories/fakes/FakeUserRepository';
+import { FakeValidateProvider } from '../providers/ValidateProvider/fakes/FakeValidateProvider';
 import { FakeHashProvider } from '../providers/HashProvider/fakes/FakeHashProvider';
 import { CreateUserService } from './CreateUserService';
 import { AuthenticateUserService } from './AuthenticateUserService';
@@ -9,10 +10,12 @@ jest.mock('../infra/sequelize/entities/User.ts');
 describe('Authenticate User', () => {
   it('should be able to authenticate', async () => {
     const fakeUserRepository = new FakeUserRepository();
+    const fakeValidateProvider = new FakeValidateProvider();
     const fakeHashProvider = new FakeHashProvider();
     const createUserService = new CreateUserService(
       fakeUserRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      fakeValidateProvider
     );
     const authenticateUserService = new AuthenticateUserService(
       fakeUserRepository,
@@ -57,9 +60,11 @@ describe('Authenticate User', () => {
   it('should not be able to authenticate with wrong password', async () => {
     const fakeUserRepository = new FakeUserRepository();
     const fakeHashProvider = new FakeHashProvider();
+    const fakeValidateProvider = new FakeValidateProvider();
     const createUserService = new CreateUserService(
       fakeUserRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      fakeValidateProvider
     );
     const authenticateUserService = new AuthenticateUserService(
       fakeUserRepository,

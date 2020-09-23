@@ -1,6 +1,7 @@
 import { FakeUserRepository } from '../repositories/fakes/FakeUserRepository';
-import { CreateUserService } from './CreateUserService';
 import { FakeHashProvider } from '../providers/HashProvider/fakes/FakeHashProvider';
+import { FakeValidateProvider } from '../providers/ValidateProvider/fakes/FakeValidateProvider';
+import { CreateUserService } from './CreateUserService';
 
 jest.mock('../infra/sequelize/entities/User.ts');
 
@@ -8,9 +9,11 @@ describe('Create User', () => {
   it('should be able to create a new user', async () => {
     const fakeHashProvider = new FakeHashProvider();
     const fakeUserRepository = new FakeUserRepository();
+    const fakeValidateProvider = new FakeValidateProvider();
     const createUserService = new CreateUserService(
       fakeUserRepository,
-      fakeHashProvider
+      fakeHashProvider,
+      fakeValidateProvider
     );
     const user = await createUserService.execute({
       name: 'John Doe',

@@ -9,5 +9,6 @@ export interface IValidateProvider {
     name: string;
     email: string;
     password: string;
+    tenant_id: string;
   }): IUserValidate;
 }
