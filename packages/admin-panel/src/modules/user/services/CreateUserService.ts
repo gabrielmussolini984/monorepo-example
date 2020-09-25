@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '@shared/errors/MainError';
 import { User } from '@modules/user/infra/sequelize/entities/User';
 import { IUserRepository } from '@modules/user/repositories/IUserRepository';
 import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
@@ -25,13 +26,21 @@ export class CreateUserService {
     password,
     tenant_id
   }: IRequest): Promise<User> {
-    this.validateProvider.userBodyValidate({
+    const validateParams = this.validateProvider.userBodyValidate({
       name,
       email,
       password,
       tenant_id
     });
-    // const checkCategoryExist = await this.CategoryRepository.findByName({name});
+    if (!validateParams.result)
+      throw new AppError('Missing params required', 400);
+
+    const checkUserExist = await this.userRepository.findByEmail({
+      email,
+      tenant_id
+    });
+    if (checkUserExist) throw new AppError('Email already exists', 400);
+
     const passwordHashed = await this.hashProvider.generate(password);
     const user = await this.userRepository.create({
       name,
