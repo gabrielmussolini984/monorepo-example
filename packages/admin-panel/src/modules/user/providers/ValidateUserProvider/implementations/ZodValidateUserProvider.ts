@@ -1,6 +1,6 @@
 import * as z from 'zod';
 import { IUserValidate } from '@modules/user/dtos/IUserValidate';
-import { IValidateProvider } from '../models/IValidateProvider';
+import { IValidateUserProvider } from '../models/IValidateUserProvider';
 
 const userSchema = z.object({
   name: z
@@ -12,7 +12,7 @@ const userSchema = z.object({
   tenant_id: z.string().min(3, { message: 'Must be 5 or more characters long' })
 });
 
-export class ZodValidateProvider implements IValidateProvider {
+export class ZodValidateUserProvider implements IValidateUserProvider {
   public userBodyValidate({
     name,
     email,

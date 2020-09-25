@@ -1,6 +1,6 @@
 import { IUserValidate } from '@modules/user/dtos/IUserValidate';
 
-export interface IValidateProvider {
+export interface IValidateUserProvider {
   userBodyValidate({
     name,
     email,

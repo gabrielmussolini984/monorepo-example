@@ -3,7 +3,7 @@ import { AppError } from '@shared/errors/MainError';
 import { User } from '@modules/user/infra/sequelize/entities/User';
 import { IUserRepository } from '@modules/user/repositories/IUserRepository';
 import { IHashProvider } from '../providers/HashProvider/models/IHashProvider';
-import { IValidateProvider } from '../providers/ValidateProvider/models/IValidateProvider';
+import { IValidateUserProvider } from '../providers/ValidateUserProvider/models/IValidateUserProvider';
 
 interface IRequest {
   name: string;
@@ -17,7 +17,8 @@ export class CreateUserService {
   constructor(
     @inject('UserRepository') private userRepository: IUserRepository,
     @inject('HashProvider') private hashProvider: IHashProvider,
-    @inject('ValidateProvider') private validateProvider: IValidateProvider
+    @inject('ValidateUserProvider')
+    private validateUserProvider: IValidateUserProvider
   ) {}
 
   public async execute({
@@ -26,7 +27,7 @@ export class CreateUserService {
     password,
     tenant_id
   }: IRequest): Promise<User> {
-    const validateParams = this.validateProvider.userBodyValidate({
+    const validateParams = this.validateUserProvider.userBodyValidate({
       name,
       email,
       password,

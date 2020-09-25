@@ -1,7 +1,7 @@
 import { IUserValidate } from '@modules/user/dtos/IUserValidate';
-import { IValidateProvider } from '../models/IValidateProvider';
+import { IValidateUserProvider } from '../models/IValidateUserProvider';
 
-export class FakeValidateProvider implements IValidateProvider {
+export class FakeValidateUserProvider implements IValidateUserProvider {
   public userBodyValidate({
     name,
     email,
