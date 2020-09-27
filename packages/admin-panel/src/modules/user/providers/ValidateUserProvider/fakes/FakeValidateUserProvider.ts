@@ -13,7 +13,7 @@ export class FakeValidateUserProvider implements IValidateUserProvider {
     password: string;
     tenant_id: string;
   }): IUserValidate {
-    if (name?.length > 5 && email?.length > 5 && password?.length)
+    if (name.length > 5 && email.length > 5 && password.length)
       return { result: true, data: { name, email, password, tenant_id } };
     return { result: false };
   }

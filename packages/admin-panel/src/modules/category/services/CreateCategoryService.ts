@@ -1,6 +1,8 @@
 import { inject, injectable } from 'tsyringe';
+import { AppError } from '@shared/errors/MainError';
 import { Category } from '@modules/category/infra/sequelize/entities/Category';
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
+import { IValidateCategoryProvider } from '@modules/category/providers/ValidateCategoryProvider/models/IValidateCategoryProvider';
 
 interface IRequest {
   name: string;
@@ -12,7 +14,9 @@ interface IRequest {
 export class CreateCategoryService {
   constructor(
     @inject('CategoryRepository')
-    private categoryRepository: ICategoryRepository
+    private categoryRepository: ICategoryRepository,
+    @inject('ValidateCategoryProvider')
+    private validateCategoryProvider: IValidateCategoryProvider
   ) {}
 
   public async execute({
@@ -20,11 +24,19 @@ export class CreateCategoryService {
     description,
     tenant_id
   }: IRequest): Promise<Category> {
-    // const checkCategoryExist = await this.categoryRepository.findByName({
-    //   name,
-    //   tenant_id
-    // });
-    // if (checkCategoryExist) return null;
+    const validateParams = this.validateCategoryProvider.categoryBodyValidate({
+      name,
+      description,
+      tenant_id
+    });
+    if (!validateParams.result)
+      throw new AppError('Missing params required', 400);
+
+    const checkCategoryExist = await this.categoryRepository.findByName({
+      name,
+      tenant_id
+    });
+    if (checkCategoryExist) throw new AppError('Category already exists', 400);
     const category = await this.categoryRepository.create({
       name,
       description,

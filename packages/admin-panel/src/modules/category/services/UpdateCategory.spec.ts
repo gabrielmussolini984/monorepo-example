@@ -1,4 +1,5 @@
 import { FakeCategoryRepository } from '../repositories/fakes/FakeCategoryRepository';
+import { FakeValidateCategoryProvider } from '../providers/ValidateCategoryProvider/fakes/FakeValidateCategoryProvider';
 import { CreateCategoryService } from './CreateCategoryService';
 import { UpdateCategoryService } from './UpdateCategoryService';
 
@@ -7,8 +8,10 @@ jest.mock('../infra/sequelize/entities/Category.ts');
 describe('Update Category', () => {
   it('should be able to update category', async () => {
     const fakeCategoryRepository = new FakeCategoryRepository();
+    const fakeValidateCategoryProvider = new FakeValidateCategoryProvider();
     const createCategoryService = new CreateCategoryService(
-      fakeCategoryRepository
+      fakeCategoryRepository,
+      fakeValidateCategoryProvider
     );
 
     const newCategory = await createCategoryService.execute({

@@ -17,6 +17,7 @@ import { UserRepository } from '@modules/user/infra/sequelize/repositories/UserR
 
 import '@modules/user/providers/HashProvider';
 import '@modules/user/providers/ValidateUserProvider';
+import '@modules/category/providers/ValidateCategoryProvider';
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
