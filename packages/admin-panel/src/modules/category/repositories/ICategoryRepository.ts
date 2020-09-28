@@ -19,7 +19,7 @@ export interface ICategoryRepository {
   }: {
     name: string;
     tenant_id: string;
-  }): Promise<Category | undefined>;
+  }): Promise<Category>;
   update(data: IUpdateCategoryDTO): Promise<[number, Category[]]>;
   delete({ id }: { id: string }): Promise<number>;
   // findByName(name: string, tenant_id: string): Promise<Category>;

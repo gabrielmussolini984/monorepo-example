@@ -2,7 +2,7 @@ import * as z from 'zod';
 import { ICategoryValidate } from '@modules/category/dtos/ICategoryValidate';
 import { IValidateCategoryProvider } from '../models/IValidateCategoryProvider';
 
-const userSchema = z.object({
+const categorySchema = z.object({
   name: z
     .string()
     .min(3, { message: 'Must be 5 or more characters long' })
@@ -23,7 +23,7 @@ export class ZodValidateCategoryProvider implements IValidateCategoryProvider {
     description: string;
     tenant_id: string;
   }): ICategoryValidate {
-    if (userSchema.check({ name, description, tenant_id }))
+    if (categorySchema.check({ name, description, tenant_id }))
       return { result: true, data: { name, description, tenant_id } };
 
     return {

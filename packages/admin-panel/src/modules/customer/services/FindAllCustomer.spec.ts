@@ -1,4 +1,5 @@
 import { FakeCustomerRepository } from '../repositories/fakes/FakeCustomerRepository';
+import { FakeValidateCustomerProvider } from '../providers/CustomerValidateProvider/fakes/FakeValidateCustomerProvider';
 import { CreateCustomerService } from './CreateCustomerService';
 import { FindAllCustomersService } from './FindAllCustomersService';
 
@@ -7,8 +8,10 @@ jest.mock('../infra/sequelize/entities/Customer.ts');
 describe('Find all Customer', () => {
   it('should be able to find all categories', async () => {
     const fakeCustomerRepository = new FakeCustomerRepository();
+    const fakeValidateCustomerProvider = new FakeValidateCustomerProvider();
     const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository
+      fakeCustomerRepository,
+      fakeValidateCustomerProvider
     );
 
     await createCustomerService.execute({
@@ -84,9 +87,9 @@ describe('Find all Customer', () => {
     });
 
     await createCustomerService.execute({
-      name: 'Teste 4',
+      name: 'Teste 5',
       email: 'teste4@hotmail.com',
-      personal_document: '44444444444',
+      personal_document: '55555555555',
       addresses: [
         {
           zip_code: '44444444',

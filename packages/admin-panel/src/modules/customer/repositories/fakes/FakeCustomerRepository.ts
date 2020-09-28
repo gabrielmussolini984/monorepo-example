@@ -28,7 +28,7 @@ export class FakeCustomerRepository implements ICustomerRepository {
     return customer;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit
   }: {
@@ -56,6 +56,17 @@ export class FakeCustomerRepository implements ICustomerRepository {
       return customer;
     });
     return [1, customerUpdated];
+  }
+
+  public async findByPersonalDocument({
+    personal_document
+  }: {
+    personal_document: string;
+  }): Promise<Customer> {
+    const customer = this.customers.find(
+      (element) => element.personal_document === personal_document
+    );
+    return customer;
   }
 
   public async delete({ id }: { id: string }): Promise<number> {

@@ -59,7 +59,7 @@ export class FakeCategoryRepository implements ICategoryRepository {
   }: {
     name: string;
     tenant_id: string;
-  }): Promise<Category | null> {
+  }): Promise<Category> {
     const category = this.categories.find((element) => element.name === name);
     return category;
   }

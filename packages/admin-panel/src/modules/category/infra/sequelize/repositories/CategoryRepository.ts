@@ -65,7 +65,7 @@ export class CategoryRepository implements ICategoryRepository {
   }: {
     name: string;
     tenant_id: string;
-  }): Promise<Category | null> {
+  }): Promise<Category> {
     const category = await this.sequelizeRepository.findOne({
       where: { name, tenant_id }
     });
