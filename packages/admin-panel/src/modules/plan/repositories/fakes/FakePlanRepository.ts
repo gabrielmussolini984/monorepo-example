@@ -28,7 +28,7 @@ export class FakePlanRepository implements IPlanRepository {
     return plan;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit
   }: {
@@ -57,6 +57,11 @@ export class FakePlanRepository implements IPlanRepository {
       return plan;
     });
     return [1, planUpdated];
+  }
+
+  public async findByName({ name }: { name: string }): Promise<Plan> {
+    const plan = this.plans.find((element) => element.name === name);
+    return plan;
   }
 
   public async delete({ id }: { id: string }): Promise<number> {
