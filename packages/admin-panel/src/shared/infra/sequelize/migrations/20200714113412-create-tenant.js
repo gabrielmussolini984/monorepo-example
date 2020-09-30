@@ -5,36 +5,36 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4
       },
       company: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       is_admin: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: false
       },
       site: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       fallback_subdomain: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
-  down: async queryInterface => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('tenants');
-  },
+  }
 };
