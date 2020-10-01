@@ -4,15 +4,15 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import handlebars from 'express-handlebars';
 import session from 'express-session';
 import passport from 'passport';
+import flash from 'connect-flash';
 // import paginateHelper from 'express-handlebars-paginate';
 // import cors from 'cors';
 // import helmet from 'helmet';
-import flash from 'connect-flash';
-import '@config/Authenticate';
-import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
-import { AppError } from '../../errors/MainError';
-import { globalVars } from './middlewares/globalVariables';
 import '@shared/container';
+import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
+import { globalVars } from './middlewares/globalVariables';
+import '@config/Authenticate';
+import { AppError } from '../../errors/MainError';
 import routes from './routes';
 
 export class App {
