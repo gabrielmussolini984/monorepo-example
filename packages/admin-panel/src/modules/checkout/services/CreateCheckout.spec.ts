@@ -1,6 +1,6 @@
 import { AppError } from '../../../shared/errors/MainError';
 import { FakeCheckoutRepository } from '../repositories/fakes/FakeCheckoutRepository';
-import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidatePlanProvider';
+import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidateCheckoutProvider';
 import { CreateCheckoutService } from './CreateCheckoutService';
 
 jest.mock('../infra/sequelize/entities/Checkout.ts');

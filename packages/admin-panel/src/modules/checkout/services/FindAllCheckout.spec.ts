@@ -1,12 +1,12 @@
 import { FakeCheckoutRepository } from '../repositories/fakes/FakeCheckoutRepository';
-import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidatePlanProvider';
+import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidateCheckoutProvider';
 import { CreateCheckoutService } from './CreateCheckoutService';
-import { FindAllCheckoutsService } from './FindAllCheckoutService';
+import { FindAllCheckoutsService } from './FindAllCheckoutsService';
 
-jest.mock('../infra/sequelize/entities/Plan.ts');
+jest.mock('../infra/sequelize/entities/Checkout.ts');
 
-describe('Find all Plan', () => {
-  it('should be able to find all categories', async () => {
+describe('Find all Checkout', () => {
+  it('should be able to find all checkout', async () => {
     const fakeCheckoutRepository = new FakeCheckoutRepository();
     const fakeValidateCheckoutProvider = new FakeValidateCheckoutProvider();
     const createCheckoutService = new CreateCheckoutService(

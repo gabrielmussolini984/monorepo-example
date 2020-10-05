@@ -22,6 +22,7 @@ import '@modules/user/providers/HashProvider';
 import '@modules/user/providers/ValidateUserProvider';
 import '@modules/category/providers/ValidateCategoryProvider';
 import '@modules/checkout/providers/ValidateCheckoutProvider';
+import '@modules/subscription/providers/SubscriptionValidateProvider';
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',

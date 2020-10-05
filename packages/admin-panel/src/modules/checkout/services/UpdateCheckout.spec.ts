@@ -1,5 +1,5 @@
 import { FakeCheckoutRepository } from '../repositories/fakes/FakeCheckoutRepository';
-import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidatePlanProvider';
+import { FakeValidateCheckoutProvider } from '../providers/CheckoutValidateProvider/fakes/FakeValidateCheckoutProvider';
 import { CreateCheckoutService } from './CreateCheckoutService';
 import { UpdateCheckoutService } from './UpdateCheckoutService';
 

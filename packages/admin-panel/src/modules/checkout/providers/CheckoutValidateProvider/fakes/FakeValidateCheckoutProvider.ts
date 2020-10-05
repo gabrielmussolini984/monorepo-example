@@ -8,7 +8,12 @@ export class FakeValidateCheckoutProvider implements IValidateCheckoutProvider {
     price,
     status
   }: ICreateCheckoutDTO): ICreateCheckoutDTO | null {
-    if (customer_id.length > 5 && plan_id.length > 5 && price > 1 && status)
+    if (
+      customer_id.length > 5 &&
+      plan_id.length > 5 &&
+      price > 1 &&
+      (status || !status)
+    )
       return { customer_id, plan_id, price, status };
     return null;
   }
