@@ -1,10 +1,12 @@
-<script src="config/configTablesCrud.js"></script>
 <script>
   $(document).ready(function () {
+    {{>_domain}}
+    {{>_Toast}}
     /****  Config DataTable ****/
-    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'plan' });
+
     const table = $("#table-plans").DataTable({
-      ...config,
+      ...configTable,
+      ajax: `${domain}/plan/index`,
       columns: [
         { data: "name" },
         { data: "billing_cycle" },
@@ -16,15 +18,14 @@
         {
           targets: -1,
           data: "id",
-          defaultContent: columnAction
+          defaultContent:  `<button type="button" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modal-secondary">Editar</button><button type="button" class="btn btn-outline-danger btn-xs ml-2" data-toggle="modal" data-target="#modal-danger">Remover</button>`
         }
       ]
     });
     /****  /Config DataTable ****/
 
     /********* Insert Plan ***********/
-    modalInsert('newPlan');
-    inputFocus('namePlan');
+    
     $('#newPlan').validate(
       {
         submitHandler: function (form) {

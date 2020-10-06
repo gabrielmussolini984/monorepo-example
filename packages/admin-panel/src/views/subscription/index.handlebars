@@ -1,0 +1,171 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <button type="button" class="btn btn-flat btn-block btn-outline-primary mb-3" data-toggle="modal"
+              data-target="#modal-primary">Criar Plano</button>
+            <table id="table-plans" class="table table-bordered table-striped text-center">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Duração</th>
+                  <th>Preço</th>
+                  <th>ID Plano</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<div class="modal fade" id="modal-danger">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-danger">
+      <div class="modal-header">
+        <h4 class="modal-title">Cuidado!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Você têm certeza que deseja excluir esse plano? &hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Fechar</button>
+        <button id="modalDelete" type="button" class="btn btn-outline-light" data-dismiss="modal">Sim</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Nova Categoria -->
+<div class="modal fade" id="modal-primary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-primary">
+      <div class="modal-header">
+        <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="newPlan" action="/" method="POST" role="form" autocomplete="off">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="namePlan">Nome</label>
+              <input type="text" id="namePlan" name="name" class="form-control"
+                placeholder="Digite um nome para o plano" autofocus>
+            </div>
+            <div class="form-group">
+              <label for="billing_cycle">Duração</label>
+              <select name="billing_cycle" class="form-control">
+                <option value="Mensal">Mensal</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Semestral">Semestral</option>
+                <option value="Anual">Anual</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="price">Preço</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="price" name="price" type="number" min="0" step="1" class="form-control"
+                  placeholder="Insira a valor do plano">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="remote_plan_id">ID do plano</label>
+              <input name="remote_plan_id" type="text" class="form-control" placeholder="Digite o id do plano">
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Criar plano</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- Editar Categoria -->
+<div class="modal fade" id="modal-secondary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-secondary">
+      <div class="modal-header">
+        <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="editPlan" action="/" method="POST" role="form" autocomplete="off">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="namePlanEdit">Nome</label>
+              <input type="text" id="namePlanEdit" name="name" class="form-control"
+                placeholder="Digite um nome para o plano" autofocus>
+            </div>
+            <div class="form-group">
+              <label for="billing_cycleEdit">Duração</label>
+              <select id="billing_cycleEdit" name="billing_cycle" class="form-control">
+                <option value="Mensal">Mensal</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Semestral">Semestral</option>
+                <option value="Anual">Anual</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="priceEdit">Preço</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="priceEdit" name="price" type="number" min="0" step="1" class="form-control"
+                  placeholder="Insira a valor do plano">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="remote_plan_idEdit">ID do plano</label>
+              <input name="remote_plan_id" type="text" class="form-control" placeholder="Digite o id do plano">
+            </div>
+          </div>
+          <input type="text" name="id" class="form-control" hidden>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Editar plano</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+</div>

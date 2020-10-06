@@ -1,41 +1,13 @@
 
 <script>
-  let domain;
-  {{#if tenant.domain}}
-      domain = "{{tenant.domain}}";
-  {{else}}
-      domain = "http://{{tenant.fallback_subdomain}}.admin.superstoree.test:3000";
-  {{/if}}
+  
   $(document).ready(function () {
-    const Toast = Swal.mixin({
-      position: 'center',
-      showConfirmButton: false,
-      timer: 2000,
-      backdrop: false
-    });
-
+    {{>_domain}}
+    {{>_Toast}}
     /****  Config DataTable ****/
-    //const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
     const table = $("#tabela-categories").DataTable({
-      serverSide: true,
-      responsive: true,
-      autoWidth: false,
+      ...configTable,
       ajax: `${domain}/category/index`,
-      searching: false,
-        ordering: false,
-        
-      language: {
-        lengthMenu: "Mostrar _MENU_ dados por página",
-        zeroRecords: "Nothing found - sorry",
-        info: "Mostrando _PAGE_ de _PAGES_ páginas. Total de _MAX_ registros",
-        infoEmpty: "No records available",
-        infoFiltered: "(filtered from _MAX_ total records)",
-        search: "Pesquisar",
-        paginate: {
-          next: "Próximo",
-          previous: "Anterior",
-        }
-      },
       columns: [
         { data: "name" },
         { data: "created_at" },

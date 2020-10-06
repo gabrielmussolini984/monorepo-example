@@ -1,10 +1,13 @@
-<script src="config/configTablesCrud.js"></script>
+
 <script>
   $(document).ready(function () {
+    {{>_domain}}
+    {{>_Toast}}
     /****  Config DataTable ****/
-    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'customer' });
+  
     const table = $("#table-customers").DataTable({
-      ...config,
+      ...configTable,
+      ajax: `${domain}/customer/index`,
       columns: [
         { data: "name" },
         { data: "email" },
@@ -16,7 +19,7 @@
         {
           targets: -1,
           data: "id",
-          defaultContent: columnAction
+          defaultContent: `<button type="button" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modal-secondary">Editar</button><button type="button" class="btn btn-outline-danger btn-xs ml-2" data-toggle="modal" data-target="#modal-danger">Remover</button>`
         },
         {
           targets: -2,
@@ -28,8 +31,7 @@
     /****  /Config DataTable ****/
 
     /********* Insert Customer ***********/
-    modalInsert('newCustomer');
-    inputFocus('nameCustomer');
+    
 
     $('#newCustomer').validate(
       {

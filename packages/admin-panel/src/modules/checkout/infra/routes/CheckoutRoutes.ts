@@ -7,7 +7,7 @@ const Checkout = new CheckoutController();
 router.get('/', (req, res) => {
   res.render('checkout/index', {
     activeConf: 'active',
-    activePlan: 'active',
+    activeCheckout: 'active',
     title: 'Processos de assinatura'
   });
 });
