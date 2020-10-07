@@ -5,6 +5,8 @@ import handlebars from 'express-handlebars';
 import session from 'express-session';
 import passport from 'passport';
 import flash from 'connect-flash';
+import _handlebars from 'handlebars';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 // import paginateHelper from 'express-handlebars-paginate';
 // import cors from 'cors';
 // import helmet from 'helmet';
@@ -33,7 +35,12 @@ export class App {
       express.static(resolve(__dirname, '..', '..', '..', 'public'))
     );
     this.app.set('views', join(__dirname, '..', '..', '..', 'views'));
-    this.app.engine('handlebars', handlebars());
+    this.app.engine(
+      'handlebars',
+      handlebars({
+        handlebars: allowInsecurePrototypeAccess(_handlebars)
+      })
+    );
     this.app.set('view engine', 'handlebars');
     this.app.use(
       session({

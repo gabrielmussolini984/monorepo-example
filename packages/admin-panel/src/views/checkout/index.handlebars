@@ -67,19 +67,17 @@
             <div class="form-group">
               <label for="nameCustomer">Customer Name</label>
               <select id="nameCustomer" name="customer_id" class="custom-select">
-                <option>Gabriel 1</option>
-                <option>Joao 2</option>
-                <option>Felipe 3</option>
-                <option>Alex 4</option>
-                <option>João 5</option>
+                {{#each customers}}
+                <option>{{name}}</option>
+                {{/each}}
               </select>
             </div>
             <div class="form-group">
               <label for="namePlan">Plano</label>
               <select id="namePlan" name="plan_id" class="custom-select">
-                <option>Plano 1</option>
-                <option>Plano 2</option>
-                <option>Plano 3</option>
+                {{#each plans}}
+                <option>{{name}}</option>
+                {{/each}}
               </select>
             </div>
             <div class="form-group">

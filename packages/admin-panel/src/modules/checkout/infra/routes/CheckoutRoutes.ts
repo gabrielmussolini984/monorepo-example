@@ -1,14 +1,21 @@
 import express from 'express';
+import { container } from 'tsyringe';
 import { CheckoutController } from '@modules/checkout/infra/controllers/CheckoutController';
+import { IndexSelectService } from '@modules/checkout/services/IndexSelectService';
 
 const router = express.Router();
 const Checkout = new CheckoutController();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  const indexSelectService = container.resolve(IndexSelectService);
+  const { plans, customers } = await indexSelectService.execute();
+  console.log(plans);
   res.render('checkout/index', {
     activeConf: 'active',
     activeCheckout: 'active',
-    title: 'Processos de assinatura'
+    title: 'Processos de assinatura',
+    plans,
+    customers
   });
 });
 
