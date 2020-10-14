@@ -9,7 +9,6 @@ const Checkout = new CheckoutController();
 router.get('/', async (req, res) => {
   const indexSelectService = container.resolve(IndexSelectService);
   const { plans, customers } = await indexSelectService.execute();
-  console.log(plans);
   res.render('checkout/index', {
     activeConf: 'active',
     activeCheckout: 'active',

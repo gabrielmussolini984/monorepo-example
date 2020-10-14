@@ -68,7 +68,7 @@
               <label for="nameCustomer">Customer Name</label>
               <select id="nameCustomer" name="customer_id" class="custom-select">
                 {{#each customers}}
-                <option>{{name}}</option>
+                <option value="{{id}}">{{name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -76,7 +76,7 @@
               <label for="namePlan">Plano</label>
               <select id="namePlan" name="plan_id" class="custom-select">
                 {{#each plans}}
-                <option>{{name}}</option>
+                <option value="{{id}}">{{name}}</option>
                 {{/each}}
               </select>
             </div>
@@ -96,8 +96,8 @@
             <div class="form-group">
               <label for="status">Status</label>
               <select id="status" name="status" class="custom-select">
-                <option>Pago</option>
-                <option>Pedente</option>
+                <option value="1">Pago</option>
+                <option value="0">Pedente</option>
               </select>
             </div>
           </div>
