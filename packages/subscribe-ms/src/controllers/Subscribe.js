@@ -38,11 +38,11 @@ class SubscribeController {
       const plan = await Plan.findOne({ where: { id: plan_id } });
 
       const reqSubscription = {
+        api_key: process.env.API_KEY,
+        plan_id: plan.remote_plan_id,
+        payment_method,
         secret_key: process.env.SECRET_KEY,
         gateway_name: process.env.GATEWAY,
-        api_key: process.env.API_KEY,
-        remote_plan_id: plan.remote_plan_id,
-        payment_method,
         card_hash,
         soft_descriptior: 'Sass Store',
         post_back_url: '',
@@ -52,9 +52,9 @@ class SubscribeController {
           document_number
         }
       };
-      const response = await axios.post(process.env.URL_API, {
-        data: reqSubscription
-      });
+      console.log('chegou aqui');
+      const response = await axios.post(process.env.URL_API, reqSubscription);
+      console.log('RESPONSE: ', response);
 
       if (response.data.status === 'declined') {
         return new Error('Erro na transação');
@@ -109,6 +109,7 @@ class SubscribeController {
 
       return res.render('success');
     } catch (error) {
+      console.log(error);
       return res.render('home');
     }
   }

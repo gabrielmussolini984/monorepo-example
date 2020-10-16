@@ -1,0 +1,18 @@
+{
+  "secret_key": "abcde",
+  "gateway": {
+    "name": "pagar.me",
+    "api_key": "Api Key"
+  },
+  "api_key": "Api Key",
+  "remotePlanId": 1,
+  "paymentMethod": "credit_card",
+  "cardHash": "hash",
+  "softDescriptor": "codeshop",
+  "postbackURL": "a",
+  "customer": {
+    "name": "Gabriel",
+    "email": "gabrielmussolini@hotmail.com",
+    "documentNumber": "13259208607"
+  }
+}
