@@ -5,30 +5,30 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
+        unique: true
       },
       personal_document: {
         type: Sequelize.STRING,
-        unique: true,
+        unique: true
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
-  down: async queryInterface => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('customers');
-  },
+  }
 };

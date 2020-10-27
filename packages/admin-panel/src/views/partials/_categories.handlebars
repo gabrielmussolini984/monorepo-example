@@ -1,10 +1,13 @@
-<script src="config/configTablesCrud.js"></script>
+
 <script>
+  
   $(document).ready(function () {
+    {{>_domain}}
+    {{>_Toast}}
     /****  Config DataTable ****/
-    const config = configDataTable({ subdomain: '{{tenant.fallback_subdomain}}', service: 'category' });
     const table = $("#tabela-categories").DataTable({
-      ...config,
+      ...configTable,
+      ajax: `${domain}/category/index`,
       columns: [
         { data: "name" },
         { data: "created_at" },
@@ -14,7 +17,7 @@
         {
           targets: -1,
           data: "id",
-          defaultContent: columnAction
+          defaultContent: `<button type="button" class="btn btn-outline-primary btn-xs" data-toggle="modal" data-target="#modal-secondary">Editar</button><button type="button" class="btn btn-outline-danger btn-xs ml-2" data-toggle="modal" data-target="#modal-danger">Remover</button>`
         },
         {
           targets: 1,
@@ -36,7 +39,7 @@
             params[item.name] = item.value;
           })
           $.ajax({
-            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + params.id,
+            url: `${domain}/category/${params.id}` ,
             type: "PUT",
             data: params,
             headers: "contentType: \"application/json\"",
@@ -90,6 +93,11 @@
         }
       });
 
+    $('#modal-primary').on('show.bs.modal', function (event) {
+      $('#newCategory').trigger('reset');
+      $('input').removeClass('is-invalid');
+      $('#categoryName')[0].focus();
+    });
     $('#modal-secondary').on('show.bs.modal', function (event) {
       let button = event.relatedTarget.parentElement.parentElement;
       let line = table.row(button);
@@ -113,7 +121,7 @@
       buttonDelete.click(function (e) {
         const id = e.target.value;
         $.ajax({
-          url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category/" + id,
+          url: `${domain}/category/${id}`,
           type: "DELETE",
           headers: "contentType: \"application/json\"",
           success: function (response) {
@@ -134,13 +142,17 @@
     });
     /********* /Delete Category ***********/
     /********* Insert Category ***********/
-    modalInsert('newCategory');
-    inputFocus('nameCategory');
+    // modalInsert('newCategory');
+
+
+    {{tenant.domain}}
+    // inputFocus('nameCategory');
     $('#newCategory').validate(
       {
         submitHandler: function (form) {
+          console.log('teste')
           $.ajax({
-            url: "http://{{tenant.fallback_subdomain}}.super-store.test:3000/category",
+            url: `${domain}/category`,
             type: "POST",
             data: $(form).serialize(),
             headers: "contentType: \"application/json\"",

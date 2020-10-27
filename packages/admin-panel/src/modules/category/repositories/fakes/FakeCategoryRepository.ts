@@ -1,4 +1,5 @@
-import uuid from 'uuid';
+// import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import { Category } from '@modules/category/infra/sequelize/entities/Category';
 import { ICategoryRepository } from '@modules/category/repositories/ICategoryRepository';
 // DTO's
@@ -15,7 +16,7 @@ export class FakeCategoryRepository implements ICategoryRepository {
     tenant_id
   }: ICreateCategoryDTO): Promise<Category> {
     const category = new Category();
-    Object.assign(category, { id: uuid.v4(), name, description, tenant_id });
+    Object.assign(category, { id: uuid(), name, description, tenant_id });
 
     this.categories.push(category);
 
@@ -43,10 +44,6 @@ export class FakeCategoryRepository implements ICategoryRepository {
     description,
     id
   }: IUpdateCategoryDTO): Promise<[number, Category[]]> {
-    // const categoryExist = this.categories.find(
-    //   (category) => category.id === id
-    // );
-    // if (!categoryExist) return [0, this.categories];
     const categoryUpdated = this.categories.map((category) => {
       if (category.id === id) {
         Object.assign(category, { name, description });
@@ -54,6 +51,17 @@ export class FakeCategoryRepository implements ICategoryRepository {
       return category;
     });
     return [1, categoryUpdated];
+  }
+
+  public async findByName({
+    name,
+    tenant_id
+  }: {
+    name: string;
+    tenant_id: string;
+  }): Promise<Category> {
+    const category = this.categories.find((element) => element.name === name);
+    return category;
   }
 
   public async delete({ id }: { id: string }): Promise<number> {

@@ -33,6 +33,7 @@
   },
   "exclude": [
     "node_modules",
+    ".mysqldata",
     "src/shared/infra/sequelize/*",
     "src/public/*",
     "src/shared/infra/http/views/*",

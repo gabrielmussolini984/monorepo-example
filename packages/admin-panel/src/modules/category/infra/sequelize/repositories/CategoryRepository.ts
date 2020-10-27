@@ -27,7 +27,7 @@ export class CategoryRepository implements ICategoryRepository {
     return category;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit,
     tenant_id
@@ -57,6 +57,19 @@ export class CategoryRepository implements ICategoryRepository {
       { where: { id } }
     );
     return categoryUpdated;
+  }
+
+  public async findByName({
+    name,
+    tenant_id
+  }: {
+    name: string;
+    tenant_id: string;
+  }): Promise<Category> {
+    const category = await this.sequelizeRepository.findOne({
+      where: { name, tenant_id }
+    });
+    return category;
   }
 
   public async delete({ id }: { id: string }): Promise<number> {

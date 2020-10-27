@@ -1,4 +1,5 @@
 import { FakePlanRepository } from '../repositories/fakes/FakePlanRepository';
+import { FakeValidatePlanProvider } from '../providers/PlanValidateProvider/fakes/FakeValidatePlanProvider';
 import { CreatePlanService } from './CreatePlanService';
 import { UpdatePlanService } from './UpdatePlanService';
 
@@ -7,7 +8,11 @@ jest.mock('../infra/sequelize/entities/Plan.ts');
 describe('Update Plan', () => {
   it('should be able to update Plan', async () => {
     const fakePlanRepository = new FakePlanRepository();
-    const createPlanService = new CreatePlanService(fakePlanRepository);
+    const fakeValidatePlanProvider = new FakeValidatePlanProvider();
+    const createPlanService = new CreatePlanService(
+      fakePlanRepository,
+      fakeValidatePlanProvider
+    );
 
     const newPlan = await createPlanService.execute({
       name: 'Plano Teste 1',

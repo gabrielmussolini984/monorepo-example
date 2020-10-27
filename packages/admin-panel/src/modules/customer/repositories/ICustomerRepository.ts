@@ -11,6 +11,11 @@ export interface ICustomerRepository {
     rows: Customer[];
     count: number;
   }>;
+  findByPersonalDocument({
+    personal_document
+  }: {
+    personal_document: string;
+  }): Promise<Customer>;
   create(data: ICreateCustomerDTO): Promise<Customer>;
   update({
     name,

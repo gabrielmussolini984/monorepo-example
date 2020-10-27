@@ -13,6 +13,7 @@ export interface IPlanRepository {
     rows: Plan[];
     count: number;
   }>;
+  findByName({ name }: { name: string }): Promise<Plan>;
   update(data: IUpdatePlanDTO): Promise<[number, Plan[]]>;
   delete({ id }: { id: string }): Promise<number>;
 }

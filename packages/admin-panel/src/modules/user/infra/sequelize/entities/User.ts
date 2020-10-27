@@ -8,11 +8,9 @@ import {
   ForeignKey,
   BelongsTo,
   IsUUID,
-  BeforeSave,
   DataType,
   Default
 } from 'sequelize-typescript';
-import bcrypt from 'bcryptjs';
 import { Tenant } from '../../../../tenant/infra/sequelize/entities/Tenant';
 
 @Table
@@ -29,11 +27,11 @@ export class User extends Model<User> {
   @Column
   email: string;
 
-  @Column(DataType.VIRTUAL)
+  @Column
   password: string;
 
-  @Column
-  password_hash: string;
+  // @Column
+  // password_hash: string;
 
   @ForeignKey(() => Tenant)
   @Column
@@ -51,11 +49,12 @@ export class User extends Model<User> {
   @BelongsTo(() => Tenant)
   tenant: Tenant;
 
-  @BeforeSave
-  static async async(user: User) {
-    if (user.password) {
-      // eslint-disable-next-line
-      user.password_hash = await bcrypt.hash(user.password, 8);
-    }
-  }
+  // @BeforeSave
+  // static async async(user: User) {
+  //   const hashProvider: IHashProvider = new BcryptHashProvider();
+  //   if (user.password) {
+  //     // eslint-disable-next-line
+  //     user.password_hash = await hashProvider.generate(user.password);
+  //   }
+  // }
 }

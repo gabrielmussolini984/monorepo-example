@@ -5,35 +5,35 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       description: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
       tenant_id: {
         type: Sequelize.UUID,
         references: { model: 'tenants', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
+        allowNull: false
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
-  down: async queryInterface => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('categories');
-  },
+  }
 };

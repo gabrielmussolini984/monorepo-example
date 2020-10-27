@@ -1,6 +1,7 @@
 node_modules
 dist
 
+coverage
 yarn-error.log
 
 packages/shared/rabbitmq/rabbitmq_data

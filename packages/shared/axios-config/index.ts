@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'http://localhost:3333'
+const paymentSubscriptionApi = axios.create({
+  baseURL: 'https://sfqtvxhs70.execute-api.us-east-2.amazonaws.com/'
 });
 
-export { api };
+export { paymentSubscriptionApi };

@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { uuid } from 'uuidv4';
 import { Plan } from '@modules/plan/infra/sequelize/entities/Plan';
 import { IPlanRepository } from '@modules/plan/repositories/IPlanRepository';
 // DTO's
@@ -16,7 +16,7 @@ export class FakePlanRepository implements IPlanRepository {
   }: ICreatePlanDTO): Promise<Plan> {
     const plan = new Plan();
     Object.assign(plan, {
-      id: uuid.v4(),
+      id: uuid(),
       name,
       billing_cycle,
       price,
@@ -28,7 +28,7 @@ export class FakePlanRepository implements IPlanRepository {
     return plan;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit
   }: {
@@ -57,6 +57,11 @@ export class FakePlanRepository implements IPlanRepository {
       return plan;
     });
     return [1, planUpdated];
+  }
+
+  public async findByName({ name }: { name: string }): Promise<Plan> {
+    const plan = this.plans.find((element) => element.name === name);
+    return plan;
   }
 
   public async delete({ id }: { id: string }): Promise<number> {

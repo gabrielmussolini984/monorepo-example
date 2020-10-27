@@ -13,6 +13,13 @@ export interface ICategoryRepository {
     rows: Category[];
     count: number;
   }>;
+  findByName({
+    name,
+    tenant_id
+  }: {
+    name: string;
+    tenant_id: string;
+  }): Promise<Category>;
   update(data: IUpdateCategoryDTO): Promise<[number, Category[]]>;
   delete({ id }: { id: string }): Promise<number>;
   // findByName(name: string, tenant_id: string): Promise<Category>;

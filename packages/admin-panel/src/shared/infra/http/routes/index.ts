@@ -6,6 +6,7 @@ import PlanRoutes from '@modules/plan/infra/routes/PlanRoutes';
 import SessionRoutes from '@modules/user/infra/routes/SessionRoutes';
 import UserRoutes from '@modules/user/infra/routes/UserRoutes';
 import CustomerRoutes from '@modules/customer/infra/routes/CustomerRoutes';
+import CheckoutRoutes from '@modules/checkout/infra/routes/CheckoutRoutes';
 // import CustomerRoutes from './CustomerRoutes';
 
 const routes = express.Router();
@@ -17,5 +18,6 @@ routes.use(isAuthenticated);
 routes.use('/category', CategoryRoutes);
 routes.use('/plan', PlanRoutes);
 routes.use('/customer', CustomerRoutes);
+routes.use('/checkout', CheckoutRoutes);
 
 export default routes;

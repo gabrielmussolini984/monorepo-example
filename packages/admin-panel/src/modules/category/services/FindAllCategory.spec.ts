@@ -1,4 +1,5 @@
 import { FakeCategoryRepository } from '../repositories/fakes/FakeCategoryRepository';
+import { FakeValidateCategoryProvider } from '../providers/ValidateCategoryProvider/fakes/FakeValidateCategoryProvider';
 import { CreateCategoryService } from './CreateCategoryService';
 import { FindAllCategoriesService } from './FindAllCategoriesService';
 
@@ -7,8 +8,10 @@ jest.mock('../infra/sequelize/entities/Category.ts');
 describe('Find all Category', () => {
   it('should be able to find all categories', async () => {
     const fakeCategoryRepository = new FakeCategoryRepository();
+    const fakeValidateCategoryProvider = new FakeValidateCategoryProvider();
     const createCategoryService = new CreateCategoryService(
-      fakeCategoryRepository
+      fakeCategoryRepository,
+      fakeValidateCategoryProvider
     );
 
     await createCategoryService.execute({

@@ -7,7 +7,7 @@ module.exports = {
       'plans',
       [
         {
-          id: uuidv4(),
+          id: '2100654c-4a95-4ca8-897f-0c3ebb085f0d',
           name: 'Plano Basico',
           billing_cycle: 'Trimestral',
           price: 100,
@@ -16,7 +16,7 @@ module.exports = {
           updated_at: new Date(),
         },
         {
-          id: uuidv4(),
+          id: 'bb2adb4b-7a53-430d-b8aa-14a3ac5d685c',
           name: 'Plano Master',
           billing_cycle: 'Semestral',
           price: 200,
@@ -25,7 +25,7 @@ module.exports = {
           updated_at: new Date(),
         },
         {
-          id: uuidv4(),
+          id: 'b9a45b96-816a-4f3c-a281-a48825638f9d',
           name: 'Plano Premium',
           billing_cycle: 'Anual',
           price: 300,

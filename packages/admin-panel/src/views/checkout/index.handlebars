@@ -1,0 +1,182 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <button type="button" class="btn btn-flat btn-block btn-outline-primary mb-3" data-toggle="modal"
+              data-target="#modal-primary">Criar Processo de assinatura</button>
+            <table id="table-plans" class="table table-bordered table-striped text-center">
+              <thead>
+                <tr>
+                  <th>Nome do assinante</th>
+                  <th>Plano desejado</th>
+                  <th>Preço do plano</th>
+                  <th>Status do processo</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<div class="modal fade" id="modal-danger">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-danger">
+      <div class="modal-header">
+        <h4 class="modal-title">Cuidado!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Você têm certeza que deseja excluir esse processo? &hellip;</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Fechar</button>
+        <button id="modalDelete" type="button" class="btn btn-outline-light" data-dismiss="modal">Sim</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- Novo Processo -->
+<div class="modal fade" id="modal-primary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-primary">
+      <div class="modal-header">
+        <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="newProcess" action="/" method="POST" role="form" autocomplete="off">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="nameCustomer">Customer Name</label>
+              <select id="nameCustomer" name="customer_id" class="custom-select">
+                {{#each customers}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="namePlan">Plano</label>
+              <select id="namePlan" name="plan_id" class="custom-select">
+                {{#each plans}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="price">Preço</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="price" name="price" type="number" min="0" step="1" class="form-control"
+                  placeholder="Insira a valor do processo">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" name="status" class="custom-select">
+                <option value="1">Pago</option>
+                <option value="0">Pedente</option>
+              </select>
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Criar processo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- Editar Processo -->
+<div class="modal fade" id="modal-secondary">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-secondary">
+      <div class="modal-header">
+        <h4 class="modal-title">Por favor, preencha todos os campos!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- form start -->
+        <form id="editProcess" action="/" method="POST" role="form" autocomplete="off">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="nameCustomerEdit">Customer Name</label>
+              <select id="nameCustomerEdit" name="customer_id" class="custom-select">
+                <option>Gabriel 1</option>
+                <option>Joao 2</option>
+                <option>Felipe 3</option>
+                <option>Alex 4</option>
+                <option>João 5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="namePlanEdit">Plano</label>
+              <select id="namePlanEdit" name="plan_id" class="custom-select">
+                <option>Plano 1</option>
+                <option>Plano 2</option>
+                <option>Plano 3</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="priceEdit">Preço</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input id="priceEdit" name="price" type="number" min="0" step="1" class="form-control"
+                  placeholder="Insira a valor do processo">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="statusEdit">Status</label>
+              <select id="statusEdit" name="status" class="custom-select">
+                <option>Pago</option>
+                <option>Pedente</option>
+              </select>
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-outline-light float-right">Editar processo</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+</div>

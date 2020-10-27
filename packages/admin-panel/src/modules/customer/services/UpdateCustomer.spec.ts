@@ -1,3 +1,4 @@
+import { FakeValidateCustomerProvider } from '../providers/CustomerValidateProvider/fakes/FakeValidateCustomerProvider';
 import { FakeCustomerRepository } from '../repositories/fakes/FakeCustomerRepository';
 import { CreateCustomerService } from './CreateCustomerService';
 import { UpdateCustomerService } from './UpdateCustomerService';
@@ -7,8 +8,10 @@ jest.mock('../infra/sequelize/entities/Customer.ts');
 describe('Update Customer', () => {
   it('should be able to update Customer', async () => {
     const fakeCustomerRepository = new FakeCustomerRepository();
+    const fakeValidateCustomerProvider = new FakeValidateCustomerProvider();
     const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository
+      fakeCustomerRepository,
+      fakeValidateCustomerProvider
     );
 
     const newCustomer = await createCustomerService.execute({

@@ -5,42 +5,42 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
+        unique: true
       },
-      password_hash: {
-        type: Sequelize.STRING,
+      password: {
+        type: Sequelize.STRING
       },
       tenant_id: {
         type: Sequelize.UUID,
         references: {
           model: 'tenants',
-          key: 'id',
+          key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       is_staff: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: false
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
+        type: Sequelize.DATE
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
+        type: Sequelize.DATE
+      }
     });
   },
-  down: async queryInterface => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('users');
-  },
+  }
 };

@@ -8,7 +8,6 @@ import { DeleteCategoryService } from '@modules/category/services/DeleteCategory
 export class CategoryController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { length: limit, start: offset } = req.query;
-
     const findAllCategories = container.resolve(FindAllCategoriesService);
     const categories = await findAllCategories.execute({
       offset: Number(offset),

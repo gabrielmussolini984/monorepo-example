@@ -6,12 +6,12 @@ const tenantRepository = new TenantRepository();
 export const getTenant = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ): Promise<void> => {
   const subdomain = req.headers?.host?.split('.');
   if (!subdomain) return res.status(500).end();
   const tenant = await tenantRepository.findBySubdomain({
-    fallback_subdomain: subdomain[0],
+    fallback_subdomain: subdomain[0]
   });
   if (!tenant) return res.status(500).end();
   req.tenant = tenant;

@@ -50,7 +50,7 @@ export class CustomerRepository implements ICustomerRepository {
     return newCustomer;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit
   }: {
@@ -65,7 +65,15 @@ export class CustomerRepository implements ICustomerRepository {
     return customers;
   }
 
-  delete({ id }: { id: string }): Promise<number> {
+  public async delete({ id }: { id: string }): Promise<number> {
     return this.sequelizeRepository.destroy({ where: { id } });
+  }
+
+  public async findByPersonalDocument({
+    personal_document
+  }: {
+    personal_document: string;
+  }): Promise<Customer> {
+    return this.sequelizeRepository.findOne({ where: { personal_document } });
   }
 }

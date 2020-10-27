@@ -28,7 +28,7 @@ export class PlanRepository implements IPlanRepository {
     return plan;
   }
 
-  async findAndCountAll({
+  public async findAndCountAll({
     offset,
     limit
   }: {
@@ -63,6 +63,10 @@ export class PlanRepository implements IPlanRepository {
       { where: { id } }
     );
     return planUpdated;
+  }
+
+  public async findByName({ name }: { name: string }): Promise<Plan> {
+    return this.sequelizeRepository.findOne({ where: { name } });
   }
 
   public async delete({ id }: { id: string }): Promise<number> {

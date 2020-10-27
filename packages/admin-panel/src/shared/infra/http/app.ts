@@ -4,18 +4,18 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import handlebars from 'express-handlebars';
 import session from 'express-session';
 import passport from 'passport';
+import flash from 'connect-flash';
+import _handlebars from 'handlebars';
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
 // import paginateHelper from 'express-handlebars-paginate';
 // import cors from 'cors';
 // import helmet from 'helmet';
-import flash from 'connect-flash';
-import localAuth from '@config/Authenticate';
-import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
-import { AppError } from '../../errors/MainError';
-import { globalVars } from './middlewares/globalVariables';
 import '@shared/container';
+import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
+import { globalVars } from './middlewares/globalVariables';
+import '@config/Authenticate';
+import { AppError } from '../../errors/MainError';
 import routes from './routes';
-
-localAuth();
 
 export class App {
   app: Express;
@@ -29,14 +29,19 @@ export class App {
     // this.app.use(helmet());
     // this.app.use(cors());
 
-    this.app.set('views', join(__dirname, '..', '..', '..', 'views'));
-    this.app.engine('handlebars', handlebars());
-    this.app.set('view engine', 'handlebars');
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(
       express.static(resolve(__dirname, '..', '..', '..', 'public'))
     );
+    this.app.set('views', join(__dirname, '..', '..', '..', 'views'));
+    this.app.engine(
+      'handlebars',
+      handlebars({
+        handlebars: allowInsecurePrototypeAccess(_handlebars)
+      })
+    );
+    this.app.set('view engine', 'handlebars');
     this.app.use(
       session({
         secret: 'keyboard cat',

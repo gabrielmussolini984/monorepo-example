@@ -18,22 +18,7 @@ jobs:
           node-version: 12.x
 
       - name: cd e chmod
-        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh
+        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker network create rabbitmq_saas-store && docker-compose up -d --build
 
-      - name: ls
-        run: ls
-
-      - name: Build Image
-        run: cd packages/admin-panel/ && docker-compose up --build -d
-      
-      - name: teste
-        run: docker ps
-
-      # - name: Build Image
-      #   run: docker build -t gabriel984/admin-panel:latest ./packages/admin-panel/
-
-      # - name: Run Image
-      #   run: docker run -d  --name admin-panel -p 3000:3000 gabriel984/admin-panel:latest
-
-      - name: Run Tests
-        run: docker exec app-admin-panel yarn run test
+      - name: Rodando os testes
+        run: yarn && yarn test
