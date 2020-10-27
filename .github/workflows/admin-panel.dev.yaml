@@ -18,7 +18,7 @@ jobs:
           node-version: 12.x
 
       - name: cd e chmod
-        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker network create rabbitmq_saas-store && docker-compose up -d
+        run: cd packages/admin-panel/ && chmod +x .docker/entrypoint.sh && docker network create rabbitmq_saas-store && docker-compose up -d --build
 
       - name: Rodando os testes
         run: yarn && yarn test

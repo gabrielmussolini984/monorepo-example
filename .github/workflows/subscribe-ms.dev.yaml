@@ -1,0 +1,21 @@
+name: Build Subscribe MS (DEV)
+
+on:
+  push:
+    paths:
+      - 'packages/subscribe-ms/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Build Aplication
+        run: cd packages/subscribe-ms/ && chmod +x .docker/entrypoint.sh && docker network create rabbitmq_saas-store && docker-compose up -d --build
