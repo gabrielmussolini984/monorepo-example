@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { RabbitmqServer } = require('../config/Rabbitmq-server');
 
 const { Plan, Subscription, Payment, Subscriber } = require('../models');
 // const transactionIsOk = require('../services/transaction');
@@ -52,9 +53,8 @@ class SubscribeController {
           document_number
         }
       };
-      console.log('chegou aqui');
+
       const response = await axios.post(process.env.URL_API, reqSubscription);
-      console.log('RESPONSE: ', response);
 
       if (response.data.status === 'declined') {
         return new Error('Erro na transação');
@@ -101,8 +101,17 @@ class SubscribeController {
       });
 
       if (response.data.paymentMethod === 'credit_card') {
-        // insert rabbit MQ
+        const server = await new RabbitmqServer(
+          'amqp://admin:admin@rabbitmq:5672'
+        );
+        await server.start();
+        await server.publishInExchange(
+          'amq.direct',
+          'newSubscription',
+          JSON.stringify({ ...response.data, subscriber, subscription })
+        );
       }
+
       if (response.data.status === 'unpaid') {
         return res.render('boleto');
       }

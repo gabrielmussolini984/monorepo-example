@@ -10,6 +10,9 @@ services:
       - 3000:3000
     volumes: 
       - .:/home/node/app
+    networks:
+      - default
+      - rabbitmq_saas-store
 
   db:
     image: mysql:5.7
@@ -24,3 +27,11 @@ services:
       - MYSQL_DATABASE=subscription_service_development
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=root
+
+networks:
+  default:
+    driver: bridge
+  rabbitmq_saas-store:
+    external: true
+  # redis_saas-store:
+  #   external: true
