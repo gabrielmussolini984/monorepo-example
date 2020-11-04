@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { connect } from 'amqplib';
+const {connect}= require('amqplib');
 
-export class RabbitmqServer {
+module.exports =  class RabbitmqServer {
   constructor(uri) {
     this.uri = uri;
   }
@@ -11,7 +11,8 @@ export class RabbitmqServer {
     this.channel = await this.conn.createChannel();
   }
 
-  async publishInExchange({ exchange, routingKey, message }) {
+  async publishInExchange(exchange, routingKey, message ) {
+    console.log('publish')
     return this.channel.publish(exchange, routingKey, Buffer.from(message));
   }
 }

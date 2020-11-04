@@ -12,10 +12,13 @@ import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access
 // import helmet from 'helmet';
 import '@shared/container';
 import { getTenant } from '@modules/tenant/infra/middlewares/getTenant';
+import { SubscriptionConsumers } from '@modules/subscription/infra/consumes/';
 import { globalVars } from './middlewares/globalVariables';
 import '@config/Authenticate';
 import { AppError } from '../../errors/MainError';
 import routes from './routes';
+
+import { RabbitmqServer } from '../../../config/rabbitmq-server';
 
 export class App {
   app: Express;
@@ -23,6 +26,7 @@ export class App {
   constructor() {
     this.app = express();
     this.middleware();
+    this.consumers();
   }
 
   middleware(): void {
@@ -72,6 +76,15 @@ export class App {
         layout: 'mainLogin',
         tenant: req.tenant
       });
+    });
+  }
+
+  async consumers(): Promise<void> {
+    const server = new RabbitmqServer('amqp://admin:admin@rabbitmq:5672');
+    await server.start();
+    await server.consume('express', (message) => {
+      const subscriptionConsumers = new SubscriptionConsumers();
+      subscriptionConsumers.store(JSON.parse(message.content.toString()));
     });
   }
 }
