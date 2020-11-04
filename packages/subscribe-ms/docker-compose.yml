@@ -20,7 +20,7 @@ services:
     restart: always
     tty: true
     ports: 
-      - 3306:3306
+      - 3306
     volumes: 
       - .mysqldata:/var/lib/mysql
     environment: 

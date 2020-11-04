@@ -1,9 +1,5 @@
-/* eslint-disable */
-import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { FindAllSubscriptionsService } from '@modules/subscription/services/FindAllSubscriptionsService';
 import { CreateSubscriptionService } from '@modules/subscription/services/CreateSubscriptionService';
-
 import { CreatePlanService } from '@modules/plan/services/CreatePlanService';
 import { CreateCustomerService } from '@modules/customer/services/CreateCustomerService';
 import { ICreateCustomerAddressDTO } from '@modules/customer/dtos/ICreateCustomerAddressDTO';
@@ -11,24 +7,17 @@ import { CreateCheckoutService } from '@modules/checkout/services/CreateCheckout
 import { CreateTenantService } from '@modules/tenant/services/CreateTenantService';
 import { ICreateTenantDTO } from '@modules/tenant/dtos/ITenantCreateDTO';
 
-export class SubscriptionController {
-  public async index(req: Request, res: Response): Promise<Response> {
-    const { length: limit, start: offset } = req.query;
-    const findAllSubscriptions = container.resolve(FindAllSubscriptionsService);
-    const subscriptions = await findAllSubscriptions.execute({
-      offset: Number(offset),
-      limit: Number(limit)
-    });
-
-    return res.json({
-      draw: req.params.draw,
-      recordsTotal: subscriptions.count,
-      data: subscriptions.rows,
-      recordsFiltered: subscriptions.count
-    });
-  }
-
-  public async store(req: Request, res: Response): Promise<Response> {
+export interface IMessageSubscriptionCreate {
+  plan: { name: string; id: string; amount: number; days: string };
+  customer: { name: string; email: string; document_number: string };
+  address: ICreateCustomerAddressDTO;
+  tenant: ICreateTenantDTO;
+  id: string;
+  current_period_start: Date;
+  current_period_end: Date;
+}
+export class SubscriptionConsumers {
+  public async store(message: IMessageSubscriptionCreate): Promise<boolean> {
     const {
       plan,
       customer,
@@ -37,16 +26,7 @@ export class SubscriptionController {
       id,
       current_period_start,
       current_period_end
-    }: {
-      plan: { name: string; id: string; amount: number; days: string };
-      customer: { name: string; email: string; document_number: string };
-      address: ICreateCustomerAddressDTO;
-      tenant: ICreateTenantDTO;
-      id: string;
-      current_period_start: Date;
-      current_period_end: Date;
-    } = req.body;
-
+    } = message;
     const createPlan = container.resolve(CreatePlanService);
     const planCreated = await createPlan.execute({
       name: plan.name,
@@ -79,18 +59,13 @@ export class SubscriptionController {
     });
 
     const createSubscription = container.resolve(CreateSubscriptionService);
-    const subscriptionCreated = await createSubscription.execute({
+    await createSubscription.execute({
       checkout_id: checkoutCreated.id,
       remote_subscription_id: id,
       start_date: current_period_start,
       expires_date: current_period_end,
       tenant_id: tenantCreated.id
     });
-
-    return res.json({ subscription: subscriptionCreated });
+    return true;
   }
-
-  public async update(req: Request, res: Response): Promise<void> {}
-
-  public async delete(req: Request, res: Response): Promise<void> {}
 }

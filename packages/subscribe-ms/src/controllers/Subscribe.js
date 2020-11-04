@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { RabbitmqServer } = require('../config/Rabbitmq-server');
+const RabbitmqServer = require('../config/Rabbitmq-server');
 
 const { Plan, Subscription, Payment, Subscriber } = require('../models');
-// const transactionIsOk = require('../services/transaction');
 
 class SubscribeController {
+  // Page Subscription
   async index(req, res) {
     try {
       const plan = await Plan.findOne({ where: { id: req.params.id } });
@@ -17,6 +17,7 @@ class SubscribeController {
     }
   }
 
+  // Process Subscription
   async store(req, res) {
     try {
       const {
@@ -36,14 +37,18 @@ class SubscribeController {
         installments,
         payment_method
       } = req.body;
+      // Falta validação aqui dos parâmetros.
+
+      // Find plan to find remote plan id.
       const plan = await Plan.findOne({ where: { id: plan_id } });
 
-      const reqSubscription = {
+      // Mount request data for call lambda function subscribe.
+      const reqSubscribe = {
         api_key: process.env.API_KEY,
-        plan_id: plan.remote_plan_id,
-        payment_method,
         secret_key: process.env.SECRET_KEY,
         gateway_name: process.env.GATEWAY,
+        plan_id: plan.remote_plan_id,
+        payment_method,
         card_hash,
         soft_descriptior: 'Sass Store',
         post_back_url: '',
@@ -53,8 +58,8 @@ class SubscribeController {
           document_number
         }
       };
-
-      const response = await axios.post(process.env.URL_API, reqSubscription);
+      // Request Microservice Subscribe
+      const response = await axios.post(process.env.URL_API, reqSubscribe);
 
       if (response.data.status === 'declined') {
         return new Error('Erro na transação');
@@ -101,14 +106,13 @@ class SubscribeController {
       });
 
       if (response.data.paymentMethod === 'credit_card') {
-        const server = await new RabbitmqServer(
-          'amqp://admin:admin@rabbitmq:5672'
-        );
+        const server = new RabbitmqServer('amqp://admin:admin@rabbitmq:5672');
         await server.start();
+
         await server.publishInExchange(
           'amq.direct',
           'newSubscription',
-          JSON.stringify({ ...response.data, subscriber, subscription })
+          JSON.stringify(response)
         );
       }
 
@@ -118,6 +122,7 @@ class SubscribeController {
 
       return res.render('success');
     } catch (error) {
+      // eslint-disable-next-line
       console.log(error);
       return res.render('home');
     }
