@@ -8,6 +8,8 @@ import { CreatePlanService } from '@modules/plan/services/CreatePlanService';
 import { CreateCustomerService } from '@modules/customer/services/CreateCustomerService';
 import { ICreateCustomerAddressDTO } from '@modules/customer/dtos/ICreateCustomerAddressDTO';
 import { CreateCheckoutService } from '@modules/checkout/services/CreateCheckoutService';
+import { CreateTenantService } from '@modules/tenant/services/CreateTenantService';
+import { ICreateTenantDTO } from '@modules/tenant/dtos/ITenantCreateDTO';
 
 export class Controller {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -26,15 +28,23 @@ export class Controller {
     });
   }
 
-  public async store(req: Request, res: Response): Promise<void> {
+  public async store(req: Request, res: Response): Promise<Response> {
     const {
       plan,
       customer,
-      address
+      address,
+      tenant,
+      id,
+      current_period_start,
+      current_period_end
     }: {
       plan: { name: string; id: string; amount: number; days: string };
       customer: { name: string; email: string; document_number: string };
       address: ICreateCustomerAddressDTO;
+      tenant: ICreateTenantDTO;
+      id: string;
+      current_period_start: Date;
+      current_period_end: Date;
     } = req.body;
 
     const createPlan = container.resolve(CreatePlanService);
@@ -62,16 +72,22 @@ export class Controller {
     });
 
     const createTenantService = container.resolve(CreateTenantService);
+    const tenantCreated = await createTenantService.execute({
+      company: tenant.company,
+      fallback_subdomain: tenant.fallback_subdomain,
+      is_admin: !!tenant.is_admin
+    });
 
     const createSubscription = container.resolve(CreateSubscriptionService);
-    await createSubscription.execute({
-      checkout_id,
-      expires_date,
-      remote_subscription_id,
-      start_date,
-      tenant_id
+    const subscriptionCreated = await createSubscription.execute({
+      checkout_id: checkoutCreated.id,
+      remote_subscription_id: id,
+      start_date: current_period_start,
+      expires_date: current_period_end,
+      tenant_id: tenantCreated.id
     });
-    return res.json({ message: 'Subscription has been create' });
+
+    return res.json({ subscription: subscriptionCreated });
   }
 
   public async update(req: Request, res: Response): Promise<void> {}
