@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "devDependencies": {
-    "@saas-store/eslint-config": "*",
-    "@types/jest": "^26.0.12",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.3.0"
+    "@saas-store/eslint-config": "*"
   },
   "workspaces": {
     "packages": [
@@ -15,9 +12,10 @@
     ]
   },
   "scripts": {
-    "start:admin-api": "yarn workspace @saas-store/admin-panel start",
-    "test": "jest"
-    
+    "start:admin-panel": "yarn workspace @saas-store/admin-panel start",
+    "start:ms-subscribe": "yarn workspace @saas-store/ms-subscribe start",
+    "test:admin-panel": "yarn workspace @saas-store/admin-panel test",
+    "test:ms-subscribe": "yarn workspace @saas-store/ms-subscribe test"
   },
   "author": "gabrielmussolini984"
 }

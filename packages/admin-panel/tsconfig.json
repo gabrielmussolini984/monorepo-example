@@ -9,7 +9,7 @@
       "./node_modules/@types",
       "./src/@types"
     ],
-    "types": ["jest"],
+    "types": ["reflect-metadata","jest"],
     "moduleResolution": "Node",
     "strictPropertyInitialization": false,
     "esModuleInterop": true,
